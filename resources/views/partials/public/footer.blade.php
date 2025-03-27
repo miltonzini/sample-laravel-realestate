@@ -33,7 +33,7 @@
                 </div>
             </div>
             <div class="block block-col-10-17" id="block-2">
-                <img src="{{ asset('public/img/sencillo/sencillo-studio-light.svg') }}" alt="Brand Logo" id="logo">
+                <img src="{{ asset('public/img/sample-realestate-brand/sample-realestate-logo-hz-negative.svg') }}" alt="Brand Logo" id="logo">
                 <div id="info">
                     <p>Subtexto para el logo</p>
                     <p>lore ipsum dolor sit amet</p>

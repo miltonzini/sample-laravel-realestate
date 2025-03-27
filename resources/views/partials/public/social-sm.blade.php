@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row grid">
             <div class="block block-col-1-17 logo-wrapper">
-                <img src="{{ asset('public/img/sencillo/sencillostudio-logo.svg')}}" alt="" class="logo">
+                <img src="{{ asset('public/img/sample-realestate-brand/sample-realestate-logo-hz.svg')}}" alt="" class="logo">
             </div>
         </div>
     </div>

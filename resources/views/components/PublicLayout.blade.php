@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     
-    <title>Sencillo SencilloStudio | @yield('title')</title>
+    <title>Sample Real Estate | @yield('title')</title>
 </head>
 <body id="@yield('body-id', '')" class="@yield('body-class', '')">
     

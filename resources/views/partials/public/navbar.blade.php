@@ -1,7 +1,7 @@
 <header class="header">
     <nav class="navbar {{ $class ?? '' }}">
         <div class="nav-wrapper container-wide">
-            <div class="brand"><a href="#"><img src="{{ asset('public/img/sencillo/sencillostudio-sm.svg') }}" alt=""></a></div>
+            <div class="brand"><a href="#"><img src="{{ asset('public/img/img/sample-realestate-brand/sample-realestate-logo-sm.svg') }}" alt=""></a></div>
 
             <div class="menu-toggle">
                 <i class="fa-solid fa-bars"></i>

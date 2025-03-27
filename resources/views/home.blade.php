@@ -10,8 +10,8 @@
       <div class="container">
         <div class="row grid">
             <div class="block block-col-1-17 logo-wrapper">
-                <img src="{{ asset('public/img/sencillo/sencillostudio-logo.svg') }}" alt="Brand logo" id="logo" class="hide-on-mobile">
-                <img src="{{ asset('public/img/sencillo/sencillostudio-sm.svg') }}" alt="Brand logo" id="logo" class="hide-on-desktop">
+                <img src="{{ asset('public/img/sample-realestate-brand/sample-realestate-logo-hz.svg') }}" alt="Brand logo" id="logo" class="hide-on-mobile">
+                <img src="{{ asset('public/img/img/sample-realestate-brand/sample-realestate-logo-sm.svg') }}" alt="Brand logo" id="logo" class="hide-on-desktop">
             </div>
         </div>
       </div>

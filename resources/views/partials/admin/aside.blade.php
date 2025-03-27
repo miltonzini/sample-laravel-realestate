@@ -2,7 +2,7 @@
 <aside class="dashboard-aside">
     <div class="aside-header">
         <div class="logo-wrapper">
-            <a href="{{ route('admin.dashboard') }}" class="logo"><img src="{{ asset('public/vendor/sencillo-panel/img/sencillostudio-sm.svg') }}" alt="brand-logo"></a>
+            <a href="{{ route('admin.dashboard') }}" class="logo"><img src="{{ asset('public/img/sample-realestate-brand/sample-realestate-logo-sm.svg') }}" alt="brand-logo"></a>
         </div>
     </div>
     <div class="aside-content">
@@ -41,9 +41,9 @@
             {{-- <a href="#" class="btn-sm btn-secondary-muted">Perfil</a> --}}
         </div>
     </div>
-    <div class="aside-footer">
+    {{-- <div class="aside-footer">
         <div class="sencillostudio-brand-wrapper">
-            <a class="logo" href="https://sencillostudio.ar" target="_blank"><img src="{{ asset('public/vendor/sencillo-panel/img/sencillostudio-sm.svg') }}" alt="sencillostudio-logo"> Panel</a>
+            <a class="logo" href="https://sencillostudio.ar" target="_blank"><img src="{{ asset('public/img/sample-realestate-brand/sample-realestate-logo-sm.svg') }}" alt="sencillostudio-logo"> Panel</a>
         </div>
-    </div>
+    </div> --}}
 </aside>
