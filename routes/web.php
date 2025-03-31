@@ -22,6 +22,15 @@ Route::get('/maintenance', function () {return view('maintenance.maintenance');}
 Route::get('/', [FrontPageController::class, 'home'])->name('home');
 Route::get('/preguntas-frecuentes', [FrontPageController::class, 'faq'])->name('faq');
 
+// TODO: buy
+// TODO: rent
+// TODO: developments
+
+// TODO: join our team
+
+// TODO: blog
+// TODO: blog/post
+
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login-user');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout-user');
@@ -37,6 +46,13 @@ Route::middleware([AuthMiddleware::class, PreventBackHistoryMiddleware::class])-
         Route::get('/listado-usuarios', [UserController::class, 'index'])->name('admin.users.index'); // Listado de Usuarios
         Route::get('/crear-usuario', [UserController::class, 'create'])->name('admin.users.create'); // Mostrar formulario para crear usuario
         Route::post('/store-user', [UserController::class, 'store'])->name('admin.users.store'); // Guardar usuario en la base de datos
+
+        // TODO: properties routes
+        
+        // TODO: developments routes
+        
+        // TODO: blog routes
+
     });
 });
 
