@@ -22,14 +22,22 @@ Route::get('/maintenance', function () {return view('maintenance.maintenance');}
 Route::get('/', [FrontPageController::class, 'home'])->name('home');
 Route::get('/preguntas-frecuentes', [FrontPageController::class, 'faq'])->name('faq');
 
-// TODO: buy
-// TODO: rent
-// TODO: developments
+Route::get('/comprar', [FrontPageController::class, 'buy'])->name('buy');
+Route::get('/alquilar', [FrontPageController::class, 'rent'])->name('rent');
+Route::get('/propiedades/{slug}', [FrontPageController::class, 'propertyDetails'])->name('propertyDetails');
+Route::get('/filtrar-propiedades', [FrontPageController::class, 'filterProperties'])->name('filterProperties');
 
-// TODO: join our team
+Route::get('/emprendimientos/{slug}', [FrontPageController::class, 'developmentDetails'])->name('developmentDetails');
+Route::get('/emprendimientos', [FrontPageController::class, 'developments'])->name('developments');
+Route::get('/filtrar-emprendimientos', [FrontPageController::class, 'filterDevelopments'])->name('filterDevelopments');
 
-// TODO: blog
-// TODO: blog/post
+
+Route::get('/sumate-al-equipo', [FrontPageController::class, 'joinOurTeam'])->name('joinOurTeam');
+
+
+Route::get('/blog', [FrontPageController::class, 'blog'])->name('blog.index');
+Route::get('/blog/{slug}', [FrontPageController::class, 'post'])->name('blog.post');
+Route::get('/filtrar-posts', [FrontPageController::class, 'filterPosts'])->name('filterPosts');
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login-user');
