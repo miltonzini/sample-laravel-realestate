@@ -5,13 +5,14 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('public/img/favicon/apple-touch-icon.png?v=2.02')}}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('public/img/favicon/favicon-32x32.png?v=2.02')}}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('public/img/favicon/favicon-16x16.png?v=2.02')}}">
-    <link rel="manifest" href="{{ asset('public/img/favicon/site.webmanifest')}}">
-    <link rel="mask-icon" href="{{ asset('public/img/favicon/safari-pinned-tab.svg?v=2.02" color="#012169')}}">
-    <meta name="msapplication-TileColor" content="#012169">
-    <meta name="theme-color" content="#ffffff">
+    <link rel="icon" type="image/png" href="{{ asset('public/img/favicon/favicon-96x96.png')}}" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="{{ asset('public/img/favicon/favicon.svg')}}" />
+    <link rel="shortcut icon" href="{{ asset('public/img/favicon/favicon.ico')}}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('public/img/favicon/apple-touch-icon.png')}}" />
+    <link rel="manifest" href="{{ asset('public/img/favicon/site.manifest')}}" />
+    <meta name="msapplication-TileColor" content="#F0F0F0">
+    <meta name="theme-color" content="##F0F0F0">
+    <meta name="robots" content="noindex">
     
     @if (env('APP_DEV_STATUS') == 'development')
         <meta name="robots" content="noindex">
