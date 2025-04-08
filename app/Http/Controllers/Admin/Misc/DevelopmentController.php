@@ -7,16 +7,16 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User; 
 
-class PropertyController extends Controller
+class DevelopmentController extends Controller
 {
     public function index() {
-        $scripts = ['property.js'];
-        return view('admin.properties.index', compact('scripts'));
+        $scripts = ['development.js'];
+        return view('admin.developments.index', compact('scripts'));
     }
 
     public function create() {
-        $scripts = ['property.js'];
-        return view('admin.properties.create', compact('scripts'));
+        $scripts = ['development.js'];
+        return view('admin.developments.create', compact('scripts'));
     }
 
     public function store(Request $request) {
@@ -24,8 +24,8 @@ class PropertyController extends Controller
     }
 
     public function edit($id) {
-        $scripts = ['property.js'];
-        return view('admin.properties.edit', compact('scripts'));
+        $scripts = ['development.js'];
+        return view('admin.developments.edit', compact('scripts'));
     }
 
     public function update($id, Request $request) {
@@ -37,7 +37,7 @@ class PropertyController extends Controller
     }
 
     public function search(Request $request) {
-        $scripts = ['property.js'];
-        return view('admin.properties.index', compact('scripts'));
+        $scripts = ['development.js'];
+        return view('admin.developments.index', compact('scripts'));
     }
 }
