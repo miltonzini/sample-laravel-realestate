@@ -1,4 +1,4 @@
-console.log('users called (admin)');
+console.log('user.js called (dashboard)');
 
 async function createUserFromDashboard(action, method, data) {
 

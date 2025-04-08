@@ -10,12 +10,12 @@ use App\Models\User;
 class UserController extends Controller
 {
     public function index() {
-        $scripts = ['users.js'];
+        $scripts = ['user.js'];
         return view('admin.users.index', compact('scripts'));
     }
 
     public function create() {
-        $scripts = ['users.js'];
+        $scripts = ['user.js'];
         return view('admin.users.create', compact('scripts'));
     }
 
