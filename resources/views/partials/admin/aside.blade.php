@@ -17,17 +17,31 @@
             </ul>
         </div> --}}
         <div class="aside-category">
-            <h4 class="aside-category-title">Ejemplo</h4>
+            <h4 class="aside-category-title">Propiedades</h4>
             <ul>
-                <a href="{{ "route('admin.properties.index')" }}"><li class="item {{ "setActiveRoute('admin.properties.index')" }}"><i class="bi bi-houses-fill"></i> Listado ítems</li></a>
-                <a href="{{ "route('admin.properties.create')" }}"><li class="item {{ "setActiveRoute('admin.properties.create')" }}"><i class="bi bi-houses-fill"></i> Nueva Ítem</li></a>
+                <a href="{{ route('admin.properties.create') }}"><li class="item {{ setActiveRoute('admin.properties.create') }}"><i class="bi bi-houses-fill"></i> Nueva Propiedad</li></a>
+                <a href="{{ route('admin.properties.index') }}"><li class="item {{ setActiveRoute('admin.properties.index') }}"><i class="bi bi-houses-fill"></i> Ver Propiedades</li></a>
+            </ul>
+        </div>
+        <div class="aside-category">
+            <h4 class="aside-category-title">Emprendimientos</h4>
+            <ul>
+                <a href="{{ route('admin.developments.create') }}"><li class="item {{ setActiveRoute('admin.developments.create') }}"><i class="bi bi-houses-fill"></i> Nuevo Emprendimiento</li></a>
+                <a href="{{ route('admin.developments.index') }}"><li class="item {{ setActiveRoute('admin.developments.index') }}"><i class="bi bi-houses-fill"></i> Ver Emprendimientos</li></a>
+            </ul>
+        </div>
+        <div class="aside-category">
+            <h4 class="aside-category-title">Blog</h4>
+                <ul>
+                <a href="{{ route('admin.blog.create') }}"><li class="item {{ setActiveRoute('admin.usblogers.create') }}"><i class="bi bi-file-text-fill"></i> Nuevo Post</li></a>
+                <a href="{{ route('admin.blog.index') }}"><li class="item {{ setActiveRoute('admin.blog.index') }}"><i class="bi bi-book-fill"></i> Ver Posts</li></a>
             </ul>
         </div>
         <div class="aside-category">
             <h4 class="aside-category-title">Usuarios</h4>
             <ul>
-            <a href="{{ route('admin.users.index') }}"><li class="item {{ setActiveRoute('admin.users.index') }}"><i class="bi bi-people-fill"></i> Listado Usuarios</li></a>
-            <a href="{{ route('admin.users.create') }}"><li class="item {{ setActiveRoute('admin.users.create') }}"><i class="bi bi-person-fill"></i> Agregar usuario</li></a>
+            <a href="{{ route('admin.users.create') }}"><li class="item {{ setActiveRoute('admin.users.create') }}"><i class="bi bi-person-fill"></i> Nuevo usuario</li></a>
+            <a href="{{ route('admin.users.index') }}"><li class="item {{ setActiveRoute('admin.users.index') }}"><i class="bi bi-people-fill"></i> Ver Usuarios</li></a>
             </ul>
         </div>
     </div>

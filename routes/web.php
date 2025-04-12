@@ -63,7 +63,7 @@ Route::middleware([AuthMiddleware::class, PreventBackHistoryMiddleware::class])-
 
         // Properties
         Route::get('/listado-propiedades', [PropertyController::class, 'index'])->name('admin.properties.index');
-        Route::get('/listado-propiedades', [PropertyController::class, 'search'])->name('admin.properties.search');
+        Route::post('/listado-propiedades', [PropertyController::class, 'search'])->name('admin.properties.search');
         Route::get('/crear-propiedad', [PropertyController::class, 'create'])->name('admin.properties.create');
         Route::post('/guardar-propiedad', [PropertyController::class, 'store'])->name('admin.properties.store');
         Route::get('/editar-propiedad/{id}', [PropertyController::class, 'edit'])->name('admin.properties.edit');
