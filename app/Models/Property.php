@@ -49,5 +49,10 @@ class Property extends Model
         'private_notes',
         'seller_notes'
     ];
+
+    public function images()
+    {
+        return $this->hasMany(PropertyImage::class)->orderBy('order');
+    }
     
 }
