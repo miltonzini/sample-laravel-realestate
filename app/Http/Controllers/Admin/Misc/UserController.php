@@ -55,6 +55,7 @@ class UserController extends Controller
         $name = $request->input('name');
         $surname = $request->input('surname');
         $email = $request->input('email');
+        $role = $request->input('role');
         $password = $request->input('password');
         $repeatPassword = $request->input('repeat-password');
 
@@ -62,6 +63,7 @@ class UserController extends Controller
         $userModel->name = $name;
         $userModel->surname = $surname;
         $userModel->email = $email;
+        $userModel->role = $role;
         $userModel->password = Hash::make($password);
         $userModel->password = Hash::make($repeatPassword);
         $userModel->save();

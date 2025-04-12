@@ -93,5 +93,5 @@ Route::middleware([AuthMiddleware::class, PreventBackHistoryMiddleware::class])-
 
 
 // Utility Routes (temp)
-// Route::get('/session-info', [AuthController::class, 'showSessionInfo'])->name('user-session-info'); // Mostrar la información de la sesión activa
+Route::get('/session-info', [AuthController::class, 'showSessionInfo'])->name('user-session-info'); // Mostrar la información de la sesión activa
 // Route::get('/migrate', function () {Artisan::call('migrate');return 'Migraciones ejecutadas';});

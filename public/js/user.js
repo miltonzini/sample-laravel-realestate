@@ -24,8 +24,10 @@ async function loginUser(action, method, data) {
 
         if (response.ok) {
             const responseData = await response.json();
-            if (responseData.success) {
-                window.location.href = baseUrl + '/admin'
+            if(responseData['user-role'] === 'admin') {
+                window.location.href = baseUrl + '/admin';
+            } else if (responseData['user-role'] === 'guest') {
+                window.location.href = baseUrl;
             } else {
                 toastr.error(responseData.message);
             }

@@ -18,6 +18,10 @@
                 <input type="email" class="form-control form-control-user" placeholder="Email" name="email">
                 <input type="password" class="form-control form-control-user" placeholder="Contraseña" name="password">
                 <input type="password" class="form-control form-control-user" placeholder="Repetir contraseña" name="repeat-password">
+                <select name="role" class="form-control form-control-user">
+                    <option value="guest">Invitado</option>
+                    <option value="admin">Administrador</option>
+                </select>
 
                 <button type="submit" class="btn btn-primary btn-user btn-block" id="create-user-dashboard-button">Crear Usuario</button>
             </form>

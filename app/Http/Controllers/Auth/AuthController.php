@@ -13,7 +13,15 @@ class AuthController extends Controller
 {
     public function showLogin() {
         if(Session::has('user')) {
-            return redirect()->route('admin.dashboard')->with('message', 'Sesión ya iniciada.');;
+            $userRole = Session::get('userRole');
+
+            if ($userRole == 'admin') {
+                return redirect()->route('admin.dashboard')->with('message', 'Sesión de administrador ya iniciada.');; 
+            }; 
+
+            if ($userRole == 'guest') {
+                return redirect()->route('home')->with('message', 'Sesión de invitado ya iniciada.');; 
+            }; 
         }
 
         $scripts = ['user.js'];
@@ -54,38 +62,38 @@ class AuthController extends Controller
             ]);
         }
 
-        $verifyEmail = User::where('email', $email)->first();
+        $user = User::where('email', $email)->first();
 
-        if(!$verifyEmail) {
+        if(!$user) {
             return Response()->json([
                 'success' => false,
                 'message' => 'No existe usuario registrado con ese email'
             ]);
         }
 
-        if(!Hash::check($password, $verifyEmail->password)) {
+        if(!Hash::check($password, $user->password)) {
             return Response()->json([
                 'success' => false,
                 'message' => 'La contraseña ingresada es inválida'
             ]);
         }
 
-        Auth::login($verifyEmail);
+        Auth::login($user);
         
         $userData = [
-            'id' => $verifyEmail->id,
-            'name' => $verifyEmail->name,
-            'surname' => $verifyEmail->surname,
-            'email' => $verifyEmail->email
+            'id' => $user->id,
+            'name' => $user->name,
+            'surname' => $user->surname,
+            'email' => $user->email,
+            'role' => $user->role
         ];
 
-        $roleData = 'admin';
-
         Session::put('user', $userData);
-        Session::put('userRole', $roleData);
+        Session::put('userRole', $user->role);
 
         return Response()->json([
             'success' => true,
+            'user-role' => $user->role
         ]);
     }
 
