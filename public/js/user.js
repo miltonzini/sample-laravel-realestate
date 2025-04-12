@@ -1,5 +1,5 @@
-console.log('users called (public)');
-console.log('baseUrl:' + baseUrl);
+console.log('user.js called (public)');
+// console.log('baseUrl:' + baseUrl);
 
 
 async function loginUser(action, method, data) {

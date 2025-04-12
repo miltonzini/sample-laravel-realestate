@@ -16,7 +16,7 @@ class AuthController extends Controller
             return redirect()->route('admin.dashboard')->with('message', 'Sesión ya iniciada.');;
         }
 
-        $scripts = ['users.js'];
+        $scripts = ['user.js'];
         return view('login', compact('scripts'));
     }
 

@@ -9,7 +9,6 @@
     <link rel="icon" type="image/svg+xml" href="{{ asset('public/img/favicon/favicon.svg')}}" />
     <link rel="shortcut icon" href="{{ asset('public/img/favicon/favicon.ico')}}" />
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('public/img/favicon/apple-touch-icon.png')}}" />
-    <link rel="manifest" href="{{ asset('public/img/favicon/site.manifest')}}" />
     <meta name="msapplication-TileColor" content="#F0F0F0">
     <meta name="theme-color" content="##F0F0F0">
     <meta name="robots" content="noindex">

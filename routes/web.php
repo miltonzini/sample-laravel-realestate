@@ -53,6 +53,7 @@ Route::post('/contact', [ContactFormController::class, 'submit'])->name('contact
 // Admin Routes
 Route::middleware([AuthMiddleware::class, PreventBackHistoryMiddleware::class])->group(function () {
     Route::prefix('admin')->group(function() {
+        
         Route::get('/', [DashboardController::class, 'showDashboard'])->name('admin.dashboard');
         
         // Users
@@ -86,7 +87,7 @@ Route::middleware([AuthMiddleware::class, PreventBackHistoryMiddleware::class])-
         Route::get('/editar-post/{id}', [BlogController::class, 'edit'])->name('admin.blog.edit');
         Route::post('/actualizar-post/{id}', [BlogController::class, 'update'])->name('admin.blog.update');
         Route::delete('/eliminar-post/{id}', [BlogController::class, 'delete'])->name('admin.blog.delete');
-        Route::get('/filtrar-posts', [BlogController::class, 'filterPosts'])->name('filterPosts');
+        
     });
 });
 
