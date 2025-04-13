@@ -55,4 +55,21 @@ class Property extends Model
         return $this->hasMany(PropertyImage::class)->orderBy('order');
     }
     
+    // Enable $property->short_location on read (accessor)
+    public function getShortLocationAttribute()
+    {
+        if (in_array($this->state, ['Capital Federal', 'CABA', 'Ciudad Autónoma de Buenos Aires'])) {
+            return $this->neighborhood . ' (CABA)';
+        }
+        return $this->city . ', ' . $this->state;
+    }
+
+    // Enable $property->short_title on read (accessor)
+    public function getShortTitleAttribute() {
+        if (strlen($this->title) >= 50) {
+            return substr($this->title, 0, 47) . '...';
+        }
+        return $this->title;
+    }
+    
 }
