@@ -138,7 +138,192 @@ if (document.body.id === 'admin-create-post') {
 }
 
 
+// Body #admin-edit-post -> Show image thumbnail and manage order events
+if (document.body.id === 'admin-edit-post') {
+    console.log('Code specific to Blog/Edit');
+    
+    let postFile = null;
+    let existingImage = false;
+    
+    const previewContainer = document.getElementById('image-preview-container');
+    const fileInput = document.getElementById('images');
+    
+    if (previewContainer.querySelector('.image-item')) {
+        existingImage = true;
+    }
+    
+    const loadingElement = document.createElement('div');
+    loadingElement.className = 'loading-overlay hidden';
+    loadingElement.innerHTML = `
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <p class="loading-text">Cargando imagen...</p>
+        </div>
+    `;
+    previewContainer.parentNode.insertBefore(loadingElement, previewContainer.nextSibling);
 
+    function removeFile() {
+        postFile = null;
+        fileInput.value = '';
+        
+        // If removing a newly uploaded file
+        if (!existingImage) {
+            previewContainer.innerHTML = '';
+        } else {
+            const existingImageItem = previewContainer.querySelector('.image-item[data-image-type="existing"]');
+            if (existingImageItem) {
+                const deleteInput = document.createElement('input');
+                deleteInput.type = 'hidden';
+                deleteInput.name = 'delete_image';
+                deleteInput.value = existingImageItem.getAttribute('data-image-id');
+                previewContainer.appendChild(deleteInput);
+                
+                existingImageItem.remove();
+                existingImage = false;
+            }
+        }
+    }
+
+    previewContainer.addEventListener('click', function(e) {
+        if (e.target.classList.contains('btn-remove-property-image') || 
+            e.target.classList.contains('btn-remove-post-image')) {
+            removeFile();
+        }
+    });
+    
+    fileInput.addEventListener('change', function(e) {
+        const files = Array.from(e.target.files);
+        if (files.length === 0) return;
+
+        const file = files[0];
+        const validTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
+
+        if (!validTypes.includes(file.type)) {
+            toastr.error(`${file.name} no es un tipo de archivo válido`);
+            return;
+        }
+
+        if (file.size > 5 * 1024 * 1024) {
+            toastr.error(`${file.name} excede el tamaño máximo de 5MB`);
+            return;
+        }
+
+        loadingElement.classList.remove('hidden');
+
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            postFile = file;
+            
+            if (existingImage) {
+                const existingImageItem = previewContainer.querySelector('.image-item[data-image-type="existing"]');
+                if (existingImageItem) {
+                    const replaceInput = document.createElement('input');
+                    replaceInput.type = 'hidden';
+                    replaceInput.name = 'replace_image';
+                    replaceInput.value = existingImageItem.getAttribute('data-image-id');
+                    previewContainer.appendChild(replaceInput);
+                    
+                    existingImageItem.remove();
+                }
+            }
+            
+            previewContainer.innerHTML = `
+                <div class="image-item" data-image-type="new">
+                    <div class="thumbnail-wrapper">
+                        <img src="${e.target.result}" alt="Image Preview" class="preview-thumbnail">
+                        <a href="javascript:void(0)" class="btn-remove-post-image">X</a>
+                        <span class="file-name">
+                            ${file.name.length > 18 ? file.name.substring(0, 18) + '...' : file.name}
+                        </span>
+                    </div>
+                </div>
+            `;
+
+            existingImage = false;
+
+            setTimeout(() => {
+                loadingElement.classList.add('hidden');
+            }, 500);
+        };
+
+        reader.readAsDataURL(file);
+    });
+
+    const editPostForm = document.querySelector('#edit-post-form');
+    const submitButton = document.querySelector('#edit-post-button');
+    
+    if (editPostForm) {
+        editPostForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            if (CKEDITOR.instances['post-body-textarea']) {
+                document.getElementById('post-body-textarea').value = CKEDITOR.instances['post-body-textarea'].getData();
+            }
+            
+            const formData = new FormData(this);
+            
+            formData.delete('image');
+            
+            if (postFile) {
+                formData.append('image', postFile);
+            }
+
+            let action = this.getAttribute('action');
+            let method = this.getAttribute('method');
+
+            updatePost(action, method, formData);
+        });
+    }
+
+    async function updatePost(action, method, data) {
+        try {
+            submitButton.disabled = true;
+            submitButton.innerText = 'Actualizando...';
+    
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            
+            if (method.toLowerCase() === 'put' || method.toLowerCase() === 'patch') {
+                data.append('_method', method);
+                method = 'POST';
+            }
+            
+            const response = await fetch(action, {
+                method: method,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': csrfToken,
+                },
+                body: data
+            });
+    
+            if (response.ok) {
+                const responseData = await response.json();
+                if (responseData.success) {
+                    toastr.success(responseData.message || 'Post actualizado correctamente');
+                    window.location.href = baseUrl + '/admin/listado-posts';
+                } else {
+                    toastr.error(responseData.message || 'Hubo un error al actualizar el post');
+                }
+            } else {
+                const responseData = await response.json();
+                if (responseData.errors) {
+                    Object.values(responseData.errors).forEach(function(value) {
+                        toastr.error(value);
+                    });
+                } else {
+                    toastr.error(responseData.message || 'Error al actualizar el post');
+                }
+            }
+        } catch (error) {
+            console.error("Error de red al intentar enviar la solicitud", error);
+            toastr.error("Error al intentar actualizar el post");
+        } finally {
+            submitButton.disabled = false;
+            submitButton.innerText = 'Actualizar';
+        }
+    }
+}
 
 
 // Autocompleta url_slug field
