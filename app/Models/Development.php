@@ -41,4 +41,9 @@ class Development extends Model
         'seller_notes' 
     ];
 
+    public function images()
+    {
+        return $this->hasMany(DevelopmentImage::class)->orderBy('order');
+    }
+
 }
