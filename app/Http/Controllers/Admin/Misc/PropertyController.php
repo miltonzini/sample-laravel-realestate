@@ -17,9 +17,12 @@ use Intervention\Image\Laravel\Facades\Image;
 class PropertyController extends Controller
 {
     public function index() {
+        $properties = Property::orderBy('id')->paginate(20);
+        $propertiesCount = $properties->total();
         $scripts = ['property.js?v=1.01'];
-        return view('admin.properties.index', compact('scripts'));
+        return view('admin.properties.index', compact('scripts', 'properties', 'propertiesCount'));
     }
+
 
     public function create() {
         $scripts = ['property.js?v=1.01'];
@@ -525,11 +528,52 @@ class PropertyController extends Controller
     }
 
     public function delete($id) {
-        // ...
+        $property = Property::where('id', $id)
+        ->with(['images' => function($query) {
+            $query->orderBy('order', 'asc');
+        }])
+        ->first();
+
+        if (!$property) {
+            return Response()->json([
+                'success' => false,
+                'message' => 'No se ha encontrado la propiedad'
+            ]);
+        }
+
+        foreach($property->images as $image) {
+
+            if ($image) {
+                $basePath = public_path('/files/img/properties/');
+                if (file_exists($basePath . $image->image)) {
+                    unlink($basePath . $image->image);
+                }
+                if (file_exists($basePath . $image->medium_image)) {
+                    unlink($basePath . $image->medium_image);
+                }
+                if (file_exists($basePath . $image->thumbnail_image)) {
+                    unlink($basePath . $image->thumbnail_image);
+                }
+                $image->delete();
+            }
+        }
+
+        $property->delete();
+
+
+        return response()->json([
+            'success' => true, 
+            'message' => 'La propiedad se eliminó con éxito'
+        ]);
     }
 
     public function search(Request $request) {
-        $scripts = ['property.js?v=1.01'];
-        return view('admin.properties.index', compact('scripts'));
+        $search = $request->search;
+        $properties = Property::where('title', 'like', "%$search%")
+                    ->orWhere('description', 'like', "%$search%")
+                    ->paginate(20);
+        $propertiesCount = $properties->total();
+        $scripts = [''];
+        return view('admin.properties.index', compact('properties', 'propertiesCount', 'scripts', 'search'));
     }
 }
