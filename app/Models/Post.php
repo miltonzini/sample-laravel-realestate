@@ -19,4 +19,9 @@ class Post extends Model
         'status'
     ];
 
+    public function images()
+    {
+        return $this->hasMany(PostImage::class);
+    }
+
 }
