@@ -10,69 +10,69 @@ class FrontPageController extends Controller
 {
     public function home() {
         // Log::channel('debug')->info('testing custom log');
-        $scripts = [''];
+        $scripts = [];
         return view('home', compact('scripts'));
     }
 
     public function buy() {
-        $scripts = [''];
+        $scripts = [];
         return view('buy', compact('scripts'));
     }
     public function rent() {
-        $scripts = [''];
+        $scripts = [];
         return view('rent', compact('scripts'));
     }
     public function developments() {
-        $scripts = [''];
+        $scripts = [];
         return view('developments', compact('scripts'));
     }
     public function propertyDetails($slug) {        
         $property = (object)['title' => $slug]; // temp
 
-        $scripts = [''];
+        $scripts = [];
         return view('property-details', compact('scripts', 'property'));
     }
     public function developmentDetails($slug) {
         $development = (object)['title' => $slug]; // temp
 
-        $scripts = [''];
+        $scripts = [];
         return view('development-details', compact('scripts', 'development'));
     }
 
     public function filterProperties(Request $request) {
         // ... 
-        $scripts = [''];
+        $scripts = [];
         return view('property-search-results', compact('scripts'));
     }
     public function filterDevelopments(Request $request) {
         // ... 
-        $scripts = [''];
+        $scripts = [];
         return view('developments-search-results', compact('scripts'));
     }
 
 
     public function faq() {
-        $scripts = [''];
+        $scripts = [];
         return view('faq', compact('scripts'));
     }
     public function joinOurTeam() {
-        $scripts = [''];
+        $scripts = [];
         return view('join-our-team', compact('scripts'));
     }
 
     public function blog() {
-        $scripts = [''];
+        $scripts = ['blog.js'];
         return view('blog.index', compact('scripts'));
     }
     public function post($slug) {
         $post = (object)['title' => $slug]; // temp
 
-        $scripts = [''];
+        $scripts = ['blog.js'];
         return view('blog.post', compact('scripts','post'));
     }
-
+    
     public function filterPosts(Request $request) {
-        $scripts = [''];
+        $scripts = ['blog.js'];
         return view('blog-search-results', compact('scripts'));
     }
 

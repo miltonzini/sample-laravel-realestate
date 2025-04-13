@@ -20,7 +20,7 @@
     <!-- Begin Controller level JS files -->
     @if (isset($scripts))
         @foreach ($scripts as $script)
-            <script src="{{ asset('public/admin/js/' . $script) }}"></script>
+            <script src="{{ asset('public/admin/js/' . $script . $assetVersionQueryString) }}"></script>
         @endforeach
     @endif
     <!-- End Controller level JS files -->

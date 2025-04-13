@@ -87,7 +87,7 @@
     <!-- Begin Controller level JS files -->
     @if (isset($scripts) && !empty($scripts) && $scripts[0] !== '')
         @foreach ($scripts as $script)
-            <script src="{{ asset('public/js/' . $script) }}"></script>
+            <script src="{{ asset('public/js/' . $script . $assetVersionQueryString ) }}"></script>
         @endforeach
     @endif
     <!-- End Controller level JS files -->

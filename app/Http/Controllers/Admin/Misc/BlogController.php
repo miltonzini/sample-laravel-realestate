@@ -17,12 +17,12 @@ use Intervention\Image\Laravel\Facades\Image;
 class BlogController extends Controller
 {
     public function index() {
-        $scripts = ['blog.js?v=1.01'];
+        $scripts = ['blog.js'];
         return view('admin.blog.index', compact('scripts'));
     }
 
     public function create() {
-        $scripts = ['blog.js?v=1.01'];
+        $scripts = ['blog.js'];
         return view('admin.blog.create', compact('scripts'));
     }
 

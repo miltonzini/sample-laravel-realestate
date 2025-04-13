@@ -571,7 +571,7 @@ class DevelopmentController extends Controller
                     ->orWhere('description', 'like', "%search%")
                     ->paginate(20);
         $developmentsCount = $developments->total();
-        $scripts = [''];
+        $scripts = ['development.js'];
         return view('admin.developments.index', compact('developments', 'developmentsCount', 'scripts', 'search'));
     }
 }
