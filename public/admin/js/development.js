@@ -454,3 +454,129 @@ if (document.body.id === 'admin-developments-edit') {
         }
     }
 }
+
+
+
+
+// Body #admin-developments-index
+if (document.body.id === 'admin-developments-index') {
+    console.log('Code specific to Development/Index');
+
+    async function deleteDevelopment(developmentId) {
+        const deleteButton = document.querySelector(`#deleteDevelopmentAnchor-${developmentId}`);
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        
+        try {
+            deleteButton.classList.add('disabled');
+            deleteButton.textContent = 'Eliminando...';
+    
+            const formData = new FormData();
+            formData.append('_method', 'DELETE');
+    
+            const response = await fetch(`eliminar-emprendimiento/${developmentId}`, {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': csrfToken,
+                },
+                body: formData
+            });
+    
+            if (response.ok) {
+                const responseData = await response.json();
+                if (responseData.success) {
+                    sessionStorage.setItem('deleteDevelopmentMessage', responseData.message);
+                    window.location.reload();
+                    return; 
+                }
+            } else {
+                const responseData = await response.json();
+                if (responseData.errors) {
+                    Object.values(responseData.errors).forEach(function(value) {
+                        toastr.error(value);
+                    });
+                } else {
+                    toastr.error(responseData.message || "Error al eliminar el emprendimiento");
+                }
+            }
+        } catch (error) {
+            console.error("Error de red al intentar eliminar el emprendimiento", error);
+            toastr.error("Error al intentar eliminar el emprendimiento");
+        } finally {
+            deleteButton.classList.remove('disabled');
+            deleteButton.textContent = 'Eliminar';
+        }
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedMessage = sessionStorage.getItem('deleteDevelopmentMessage');
+        if (savedMessage) {
+            toastr.success(savedMessage);
+            sessionStorage.removeItem('deleteDevelopmentMessage');
+        }
+    
+        document.querySelectorAll('[id^="deleteDevelopmentAnchor-"]').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const developmentId = button.id.split('-')[1];
+                deleteDevelopment(developmentId);
+            });
+        });
+    });
+}
+
+
+// Developments -> index -> delete development modal
+document.addEventListener('DOMContentLoaded', function() {
+    document.body.addEventListener('click', function(event) {
+        const openModalBtn = event.target.closest('[id^="deleteDevelopmentModalAnchor-"]');
+        if (openModalBtn) {
+            const developmentId = openModalBtn.id.split('-').pop();
+            const modal = document.getElementById(`deleteDevelopmentModal-${developmentId}`);
+            if (modal) {
+                modal.style.display = 'block';
+            } else {
+                console.error(`Modal con ID deleteDevelopmentModal-${developmentId} no encontrado`);
+            }
+        }
+    });
+
+    document.body.addEventListener('click', function(event) {
+        if (event.target.classList.contains('deleteDevelopmentModal') || 
+            event.target.classList.contains('cancel-button')) {
+            const modal = event.target.closest('.modal');
+            if (modal) {
+                closeModal(modal);
+            }
+        }
+    });
+
+    window.addEventListener('click', function(event) {
+        const modal = event.target.closest('.modal');
+        if (modal && event.target === modal) {
+            closeModal(modal);
+        }
+    });
+
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(function(modal) {
+                if (modal.style.display === 'block') {
+                    closeModal(modal);
+                }
+            });
+        }
+    });
+
+    function closeModal(modal) {
+        modal.style.display = 'none';
+    }
+
+    document.body.addEventListener('click', function(event) {
+        const modalContent = event.target.closest('.modal-content');
+        if (modalContent) {
+            event.stopPropagation();
+        }
+    });
+});

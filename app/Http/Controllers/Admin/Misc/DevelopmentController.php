@@ -18,8 +18,10 @@ use Intervention\Image\Laravel\Facades\Image;
 class DevelopmentController extends Controller
 {
     public function index() {
+        $developments = Development::orderBy('id')->paginate(20);
+        $developmentsCount = $developments->total();        
         $scripts = ['development.js'];
-        return view('admin.developments.index', compact('scripts'));
+        return view('admin.developments.index', compact('scripts', 'developments', 'developmentsCount'));
     }
 
     public function create() {
@@ -524,11 +526,52 @@ class DevelopmentController extends Controller
     }
 
     public function delete($id) {
-        // ...
+        $development = Development::where('id', $id)
+        ->with(['images' => function($query) {
+            $query->orderBy('order', 'asc');
+        }])
+        ->first();
+
+        if (!$development) {
+            return Response()->json([
+                'success' => false,
+                'message' => 'No se ha encontrado el emprendimiento'
+            ]);
+        }
+
+        foreach($development->images as $image) {
+
+            if ($image) {
+                $basePath = public_path('/files/img/developments/');
+                if (file_exists($basePath . $image->image)) {
+                    unlink($basePath . $image->image);
+                }
+                if (file_exists($basePath . $image->medium_image)) {
+                    unlink($basePath . $image->medium_image);
+                }
+                if (file_exists($basePath . $image->thumbnail_image)) {
+                    unlink($basePath . $image->thumbnail_image);
+                }
+                $image->delete();
+            }
+        }
+
+        $development->delete();
+
+
+        return response()->json([
+            'success' => true, 
+            'message' => 'El emprendimiento se eliminó con éxito'
+        ]);
     }
 
     public function search(Request $request) {
-        $scripts = ['development.js'];
-        return view('admin.developments.index', compact('scripts'));
+        $search = $request->search;
+        $developments = Development::where('title', 'like', "%$search%")
+                    ->orWhere('description', 'like', "%search%")
+                    ->paginate(20);
+        $developmentsCount = $developments->total();
+        $scripts = [''];
+        return view('admin.developments.index', compact('developments', 'developmentsCount', 'scripts', 'search'));
     }
 }
