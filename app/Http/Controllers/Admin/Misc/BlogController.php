@@ -17,8 +17,11 @@ use Intervention\Image\Laravel\Facades\Image;
 class BlogController extends Controller
 {
     public function index() {
+        $posts = Post::orderBy('created_at', 'DESC')->paginate(20);
+        $postsCount = $posts->total();
+
         $scripts = ['blog.js'];
-        return view('admin.blog.index', compact('scripts'));
+        return view('admin.blog.index', compact('scripts', 'posts', 'postsCount'));
     }
 
     public function create() {
@@ -361,11 +364,44 @@ class BlogController extends Controller
     }
 
     public function delete($id) {
-        // ...
+        $post = Post::with('images')->find($id);
+
+        if (!$post) {
+            return Response()->json([
+                'success' => false,
+                'message' => 'No se ha encontrado el post'
+            ]);
+        }
+
+        foreach($post->images as $image) {
+
+            if ($image) {
+                $basePath = public_path('/files/img/posts/');
+                if (file_exists($basePath . $image->image)) {
+                    unlink($basePath . $image->image);
+                }
+
+                if (file_exists($basePath . $image->thumbnail_image)) {
+                    unlink($basePath . $image->thumbnail_image);
+                }
+                $image->delete();
+            }
+        }
+        $post->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Post eliminado con éxito'
+        ]);    
     }
 
     public function search(Request $request) {
+        $search = $request->search;
+        $posts = Post::where('title', 'like', "%$search%")
+                    ->orWhere('body', 'like', "%$search%")
+                    ->paginate(20);
+        $postsCount = $posts->total();
         $scripts = ['blog.js'];
-        return view('admin.blog.index', compact('scripts'));
+        return view('admin.blog.index', compact('posts', 'postsCount', 'scripts', 'search'));
     }
 }

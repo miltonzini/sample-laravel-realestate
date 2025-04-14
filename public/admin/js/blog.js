@@ -368,3 +368,128 @@ document.addEventListener('DOMContentLoaded', function () {
         urlSlugInput.value = modifiedSlug;
     });
 });
+
+
+
+// Body #admin-post-index
+if (document.body.id === 'admin-blog-index') {
+    console.log('Code specific to Blog/Index');
+
+    async function deletePost(postId) {
+        const deleteButton = document.querySelector(`#deletePostAnchor-${postId}`);
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        
+        try {
+            deleteButton.classList.add('disabled');
+            deleteButton.textContent = 'Eliminando...';
+    
+            const formData = new FormData();
+            formData.append('_method', 'DELETE');
+    
+            const response = await fetch(`eliminar-post/${postId}`, {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': csrfToken,
+                },
+                body: formData
+            });
+    
+            if (response.ok) {
+                const responseData = await response.json();
+                if (responseData.success) {
+                    sessionStorage.setItem('deletePostMessage', responseData.message);
+                    window.location.reload();
+                    return; 
+                }
+            } else {
+                const responseData = await response.json();
+                if (responseData.errors) {
+                    Object.values(responseData.errors).forEach(function(value) {
+                        toastr.error(value);
+                    });
+                } else {
+                    toastr.error(responseData.message || "Error al eliminar el post");
+                }
+            }
+        } catch (error) {
+            console.error("Error de red al intentar eliminar el post", error);
+            toastr.error("Error al intentar eliminar el post");
+        } finally {
+            deleteButton.classList.remove('disabled');
+            deleteButton.textContent = 'Eliminar';
+        }
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedMessage = sessionStorage.getItem('deletePostMessage');
+        if (savedMessage) {
+            toastr.success(savedMessage);
+            sessionStorage.removeItem('deletePostMessage');
+        }
+    
+        document.querySelectorAll('[id^="deletePostAnchor-"]').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const postId = button.id.split('-')[1];
+                deletePost(postId);
+            });
+        });
+    });
+}
+
+
+// Blog -> index -> delete post modal
+document.addEventListener('DOMContentLoaded', function() {
+    document.body.addEventListener('click', function(event) {
+        const openModalBtn = event.target.closest('[id^="deletePostModalAnchor-"]');
+        if (openModalBtn) {
+            const postId = openModalBtn.id.split('-').pop();
+            const modal = document.getElementById(`deletePostModal-${postId}`);
+            if (modal) {
+                modal.style.display = 'block';
+            } else {
+                console.error(`Modal con ID deletePostModal-${postId} no encontrado`);
+            }
+        }
+    });
+
+    document.body.addEventListener('click', function(event) {
+        if (event.target.classList.contains('deletePostModal') || 
+            event.target.classList.contains('cancel-button')) {
+            const modal = event.target.closest('.modal');
+            if (modal) {
+                closeModal(modal);
+            }
+        }
+    });
+
+    window.addEventListener('click', function(event) {
+        const modal = event.target.closest('.modal');
+        if (modal && event.target === modal) {
+            closeModal(modal);
+        }
+    });
+
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(function(modal) {
+                if (modal.style.display === 'block') {
+                    closeModal(modal);
+                }
+            });
+        }
+    });
+
+    function closeModal(modal) {
+        modal.style.display = 'none';
+    }
+
+    document.body.addEventListener('click', function(event) {
+        const modalContent = event.target.closest('.modal-content');
+        if (modalContent) {
+            event.stopPropagation();
+        }
+    });
+});
