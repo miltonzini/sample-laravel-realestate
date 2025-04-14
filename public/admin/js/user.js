@@ -24,7 +24,7 @@ async function createUserFromDashboard(action, method, data) {
             const responseData = await response.json();
             if (responseData.success) {
                 toastr.success(responseData.message);
-                document.querySelector('#create-user-dashboard-form').reset();
+                window.location.href = baseUrl + '/admin/listado-usuarios';
             }
         } else {
             const responseData = await response.json();
