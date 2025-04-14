@@ -24,4 +24,9 @@ class Post extends Model
         return $this->hasMany(PostImage::class);
     }
 
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'author');
+    }
+
 }
