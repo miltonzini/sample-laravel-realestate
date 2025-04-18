@@ -1473,6 +1473,52 @@ body#initial-landing-page section.post-footer-section {background: var(--cb-blue
 .table-wrapper .responsive-table td,
 .table-wrapper .responsive-table th {text-align: left;padding-top: 0.5rem;padding-bottom: 0.5rem;}
 
+/* //////  Pagination   ////// */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.pagination li {
+    display: inline-flex;
+}
+
+.pagination li a,
+.pagination li span {
+    padding: 8px 12px;
+    text-decoration: none;
+    border: 1px solid #dee2e6;
+    color: #333;
+    min-width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+
+.pagination li a:hover {
+    background-color: #f8f9fa;
+    color: #0056b3;
+}
+
+.pagination li.active span {
+    background-color: #bdc4d9;
+    color: white;
+    border-color: #bdc4d9;
+}
+
+.pagination li.disabled span {
+    color: #6c757d;
+    pointer-events: none;
+    background-color: #f8f9fa;
+}
+
 
 /* //////  Modals   ////// */
 .modal {
