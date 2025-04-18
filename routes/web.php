@@ -60,6 +60,8 @@ Route::middleware([AuthMiddleware::class, PreventBackHistoryMiddleware::class])-
         Route::get('/listado-usuarios', [UserController::class, 'index'])->name('admin.users.index'); // Listado de Usuarios
         Route::get('/crear-usuario', [UserController::class, 'create'])->name('admin.users.create'); // Mostrar formulario para crear usuario
         Route::post('/store-user', [UserController::class, 'store'])->name('admin.users.store'); // Guardar usuario en la base de datos
+        Route::get('/editar-usuario/{id}', [UserController::class, 'edit'])->name('admin.users.edit');
+        Route::post('/actualizar-usuario/{id}', [UserController::class, 'update'])->name('admin.users.update'); 
 
         // Properties
         Route::get('/listado-propiedades', [PropertyController::class, 'index'])->name('admin.properties.index');
