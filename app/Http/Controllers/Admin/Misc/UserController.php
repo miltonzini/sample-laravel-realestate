@@ -11,8 +11,10 @@ use Illuminate\Support\Facades\Session;
 class UserController extends Controller
 {
     public function index() {
+        $users = User::orderBy('id')->paginate(20);
+        $usersCount = $users->total();
         $scripts = ['user.js'];
-        return view('admin.users.index', compact('scripts'));
+        return view('admin.users.index', compact('scripts', 'users', 'usersCount'));
     }
 
     public function create() {
@@ -164,7 +166,28 @@ class UserController extends Controller
     }
 
     public function delete($id) {
-        // ...
+        $user = User::where('id', $id)->first();
+
+        if(!$user) {
+            return Response()->json([
+                'success' => false,
+                'message' => 'No existe usuario registrado con dicho ID'
+            ]);
+        }
+
+        if ($id == Session('user')['id']) {
+            return Response()->json([
+                'succes' => false,
+                'message' => 'No puedes eliminarte a tí mismo del sistema'
+            ]);
+        }
+
+        $user->delete();
+
+        return Response()->json([
+            'success' => true, 
+            'message' => 'Se eliminó al usuario con éxito.'
+        ]);
     }
 
     public function search(Request $request) {

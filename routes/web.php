@@ -62,6 +62,7 @@ Route::middleware([AuthMiddleware::class, PreventBackHistoryMiddleware::class])-
         Route::post('/store-user', [UserController::class, 'store'])->name('admin.users.store'); // Guardar usuario en la base de datos
         Route::get('/editar-usuario/{id}', [UserController::class, 'edit'])->name('admin.users.edit');
         Route::post('/actualizar-usuario/{id}', [UserController::class, 'update'])->name('admin.users.update'); 
+        Route::delete('/eliminar-usuario/{id}', [UserController::class, 'delete'])->name('admin.users.delete'); 
 
         // Properties
         Route::get('/listado-propiedades', [PropertyController::class, 'index'])->name('admin.properties.index');
