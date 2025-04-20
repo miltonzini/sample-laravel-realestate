@@ -189,6 +189,12 @@ class UserController extends Controller
     }
 
     public function search(Request $request) {
-        // ...
+        $search = $request->search;
+        $users = User::where('name', 'like', "%$search%")
+                    ->orWhere('surname', 'like', "%$search%")
+                    ->paginate(20);
+        $usersCount = $users->total();
+        $scripts = [''];
+        return view('admin.users.index', compact('users', 'usersCount', 'scripts', 'search'));
     }
 }

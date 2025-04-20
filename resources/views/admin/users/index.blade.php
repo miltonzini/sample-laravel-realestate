@@ -14,7 +14,7 @@
                 <div class="block block-col-1-8">
                     <p><strong>Total:</strong> {{ $usersCount }} usuarios registrados</p>
                 </div>
-                {{-- <div class="block block-col-9-16">
+                <div class="block block-col-9-16">
                     <form id="search-form" action="{{ route('admin.users.search') }}" method="post">
                         @csrf
                         <div class="search-container">
@@ -22,7 +22,7 @@
                             <button type="submit">&#128269;</button>
                         </div>
                     </form>
-                </div> --}}
+                </div>
             </div>
         </div>
 
