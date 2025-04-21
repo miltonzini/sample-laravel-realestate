@@ -14,6 +14,10 @@ class FrontPageController extends Controller
         return view('home', compact('scripts'));
     }
 
+    public function properties() {
+        $scripts = [];
+        return view('properties.index', compact('scripts'));
+    }
     public function buy() {
         $scripts = [];
         return view('buy', compact('scripts'));

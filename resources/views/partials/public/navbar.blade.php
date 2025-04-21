@@ -1,19 +1,17 @@
 <header class="header">
     <nav class="navbar {{ $class ?? '' }}">
         <div class="nav-wrapper container-wide">
-            <div class="brand"><a href="#"><img src="{{ asset('public/img/img/sample-realestate-brand/sample-realestate-logo-sm.svg') }}" alt=""></a></div>
+            <div class="brand"><a href="#"><img src="{{ asset('public/img/sample-realestate-brand/sample-realestate-logo-sm.svg') }}" alt=""></a></div>
 
             <div class="menu-toggle">
                 <i class="fa-solid fa-bars"></i>
             </div>
 
             <div class="links flex flex-ai-c">
-                <a href="{{ "route('lorem')" }}" class="nav-link">Item 1</a>
-                <a href="{{ "route('lorem')" }}" class="nav-link">Item 2</a>
-                <a href="{{ "route('lorem')" }}" class="nav-link">Item 3</a>
-                <a href="{{ "route('lorem')" }}" class="nav-link">Item 4</a>
-                <a href="#contact" class="btn btn-outlined-light">Item 5</a>
-                <a href="{{ "route('lorem')" }}" class="btn btn-primary">Item 6</a>
+                <a href="{{ route('properties') }}" class="nav-link">Propiedades</a>
+                <a href="{{ route('developments') }}" class="nav-link">Emprendimientos</a>
+                <a href="{{ route('blog.index') }}" class="nav-link">Blog</a>
+                <a href="#contact" class="btn btn-primary">Contactanos</a>
             </div>
         </div>
     </nav>

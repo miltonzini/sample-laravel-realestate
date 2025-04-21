@@ -4,7 +4,7 @@
     </div>
     <div class="block-2">
         <div class="content-wrapper">
-            <h3 class="section-title-center text-strong">Hablá con <span class="text-accent">nosotros</span></h3>
+            <h3 class="section-title-center text-strong">Hablá con <span class="text-primary">nosotros</span></h3>
             <form method="post" action="{{ route('contact.submit') }}" onsubmit="showSendingMessageToast()">
                 @csrf
                 <input type="text" name="website" id="form-hidden-field">

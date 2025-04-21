@@ -10,7 +10,7 @@
                         <span>| <a href="{{ route('logout-user') }}">Cerrar sesión</a></span>
                     </p>
                 @endif --}}
-                <p>© <?php echo date('Y') ?> - Nombre Empresa | 
+                <p>© <?php echo date('Y') ?> - Sample Real Estate | 
                 Desarrollo web - <a href="https://mzdev.com.ar/" target="_blank" class="sencillostudio-brand"><strong>Milton Zini</strong></a> 
                 </p>
             </div>

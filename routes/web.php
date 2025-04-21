@@ -25,13 +25,13 @@ Route::get('/maintenance', function () {return view('maintenance.maintenance');}
 Route::get('/', [FrontPageController::class, 'home'])->name('home');
 Route::get('/preguntas-frecuentes', [FrontPageController::class, 'faq'])->name('faq');
 
-Route::get('/comprar', [FrontPageController::class, 'buy'])->name('buy');
-Route::get('/alquilar', [FrontPageController::class, 'rent'])->name('rent');
+Route::get('/propiedades', [FrontPageController::class, 'buy'])->name('properties');
+// Route::get('/alquilar', [FrontPageController::class, 'rent'])->name('rent');
 Route::get('/propiedades/{slug}', [FrontPageController::class, 'propertyDetails'])->name('propertyDetails');
 Route::get('/filtrar-propiedades', [FrontPageController::class, 'filterProperties'])->name('filterProperties');
 
-Route::get('/emprendimientos/{slug}', [FrontPageController::class, 'developmentDetails'])->name('developmentDetails');
 Route::get('/emprendimientos', [FrontPageController::class, 'developments'])->name('developments');
+Route::get('/emprendimientos/{slug}', [FrontPageController::class, 'developmentDetails'])->name('developmentDetails');
 Route::get('/filtrar-emprendimientos', [FrontPageController::class, 'filterDevelopments'])->name('filterDevelopments');
 
 
