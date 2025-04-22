@@ -292,7 +292,7 @@ body.admin .btn {text-transform: none;}
 ///////////////////////////////////////////////////////////*/
 
 
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
 
 html {
@@ -587,17 +587,17 @@ form .g-recaptcha {margin-left: auto;margin-right: auto;width: fit-content;}
 .strong-title-accent {
     border-left: 6px solid var(--cb-accent);
     padding-left: 1rem;
-    font-family: 'Bauziet Light', sans-serif;
+    font-family: 'Opens Sans', sans-serif;
     text-align: left;
 }
 
 .strong-title .regular {font-weight: 200;}
 .strong-title .strong {font-family: 'Open Sans', sans-serif;font-weight: 700;}
-/* .strong-title .italic {font-family: 'Open Sans', sans-serif;} */
+.strong-title .italic {font-family: 'Open Sans', sans-serif;}
 
 
 .text-strong {font-family: 'Open Sans', sans-serif;display: inline;font-weight: 700;}
-/* .text-italic {font-family: 'Open Sans', sans-serif;display: inline;font-style: italic;} */
+.text-italic {font-family: 'Open Sans', sans-serif;display: inline;font-style: italic;}
 
 .section-title-center {
     margin: 2rem auto;
@@ -819,7 +819,7 @@ section.left-background-image-section .block-2 .content-wrapper {
 
 /* //////  Regular Section   ////// */
 .regular-section h2, 
-.regular-section h3 {font-family: 'Gotham-Light', sans-serif;font-weight: 200;padding-bottom: 0.5rem;}
+.regular-section h3 {font-family: 'Open Sans', sans-serif;font-weight: 400;padding-bottom: 0.5rem;line-height: 1;}
 .regular-section img {max-width: 80vw;}
 .regular-section .btn {margin-top: 1rem;}
 @media (max-width: 819px) {
@@ -1039,7 +1039,7 @@ section#footer .link-wrapper img {
     margin: 0 0.3rem 0 0;
     width: 1.1rem;
 }
-section#footer h6 {font-size: var(--fz-2);font-weight: bold;font-family: 'Roboto', sans-serif;}
+section#footer h6 {font-size: var(--fz-2);font-weight: bold;font-family: 'Open Sans', sans-serif;}
 section#footer p {font-size: var(--fz-2);}
 section#footer .link-wrapper p {margin: 0;}
 
@@ -1157,7 +1157,7 @@ body#initial-landing-page section.post-footer-section {background: var(--cb-blue
     z-index: 600;
     position: relative;
     width: fit-content;
-    font-family: 'Bauziet Regular', sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .btn:hover {
@@ -1206,7 +1206,7 @@ body#initial-landing-page section.post-footer-section {background: var(--cb-blue
     width: 100%;
     padding: 1.25rem 1rem;
     z-index: 700;
-    font-family: 'Bauziet Regular', sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .navbar .nav-wrapper {
@@ -1608,7 +1608,8 @@ body#login-page section#login form {text-align: center;}
 
 
 body#login-page section#login.right-background-image-section .block-1 {justify-content: center;padding-top: 5rem;}
-body#login-page section#login.right-background-image-section .block-2 {background-image: url("../img/misc/login-image.jpg");}
+body#login-page section#login.right-background-image-section .block-2 {background-image: url("../img/admin/admin-header-francesca-tosolini-masthead.webp");}
+
 @media (max-width: 767px) {
     /* secondary background */
     body#login-page section#login.right-background-image-section {
