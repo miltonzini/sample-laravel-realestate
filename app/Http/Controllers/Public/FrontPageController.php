@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Public;
 
+use App\Models\Property;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
@@ -15,16 +16,15 @@ class FrontPageController extends Controller
     }
 
     public function properties() {
+        $properties = Property::where('status', 'activo')
+        ->with(['images' => function ($query) {
+            $query->orderBy('order', 'asc')->take(1);
+        }])
+        ->paginate(20);
+
+        
         $scripts = [];
-        return view('properties.index', compact('scripts'));
-    }
-    public function buy() {
-        $scripts = [];
-        return view('buy', compact('scripts'));
-    }
-    public function rent() {
-        $scripts = [];
-        return view('rent', compact('scripts'));
+        return view('properties', compact('scripts', 'properties'));
     }
     public function developments() {
         $scripts = [];

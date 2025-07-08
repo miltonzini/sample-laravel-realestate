@@ -19,13 +19,13 @@ class PropertyController extends Controller
     public function index() {
         $properties = Property::orderBy('id')->paginate(20);
         $propertiesCount = $properties->total();
-        $scripts = ['property.js?v=1.01'];
+        $scripts = ['property.js'];
         return view('admin.properties.index', compact('scripts', 'properties', 'propertiesCount'));
     }
 
 
     public function create() {
-        $scripts = ['property.js?v=1.01'];
+        $scripts = ['property.js'];
         return view('admin.properties.create', compact('scripts'));
     }
 
@@ -214,7 +214,7 @@ class PropertyController extends Controller
             return redirect()->route('home')->with('error', 'La propiedad no existe.');
         }
 
-        $scripts = ['property.js?v=1.01'];
+        $scripts = ['property.js'];
         return view('admin.properties.edit', compact('scripts', 'property'));
 
     }

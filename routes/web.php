@@ -25,7 +25,7 @@ Route::get('/maintenance', function () {return view('maintenance.maintenance');}
 Route::get('/', [FrontPageController::class, 'home'])->name('home');
 Route::get('/preguntas-frecuentes', [FrontPageController::class, 'faq'])->name('faq');
 
-Route::get('/propiedades', [FrontPageController::class, 'buy'])->name('properties');
+Route::get('/propiedades', [FrontPageController::class, 'properties'])->name('properties');
 // Route::get('/alquilar', [FrontPageController::class, 'rent'])->name('rent');
 Route::get('/propiedades/{slug}', [FrontPageController::class, 'propertyDetails'])->name('propertyDetails');
 Route::get('/filtrar-propiedades', [FrontPageController::class, 'filterProperties'])->name('filterProperties');
