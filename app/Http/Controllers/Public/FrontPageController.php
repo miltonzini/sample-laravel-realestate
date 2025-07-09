@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Public;
 
 use App\Models\Property;
+use App\Models\Development;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
@@ -27,9 +28,16 @@ class FrontPageController extends Controller
         return view('properties', compact('scripts', 'properties'));
     }
     public function developments() {
-        $scripts = [];
-        return view('developments', compact('scripts'));
+        $developments = Development::where('status', 'activo')
+        ->with(['images' => function ($query) {
+            $query->orderBy('order', 'asc')->take(1);
+        }])
+        ->paginate(20);
+
+        $scripts = [''];
+        return view('developments', compact('scripts', 'developments'));
     }
+
     public function propertyDetails($slug) {        
         $property = (object)['title' => $slug]; // temp
 
@@ -78,9 +86,29 @@ class FrontPageController extends Controller
     }
 
     public function filterDevelopments(Request $request) {
-        // ... 
-        $scripts = [];
-        return view('developments-search-results', compact('scripts'));
+        $search = $request->input('search');
+    
+        $query = Development::where('status', 'activo');
+    
+        if (!empty($search)) {
+            $query->where(function ($query) use ($search) {
+                $query->where('title', 'like', "%$search%")
+                ->orWhere('description', 'like', "%$search%")
+                ->orWhere('country', 'like', "%$search%")
+                ->orWhere('state', 'like', "%$search%")
+                ->orWhere('city', 'like', "%$search%")
+                ->orWhere('neighborhood', 'like', "%$search%");
+            });
+        }
+    
+        $developments = $query->paginate(20)->appends(request()->query());
+    
+        $developmentsCount = $developments->total();
+        $message = ($developmentsCount == 0) ? 'No se encontraron emprendimientos con ese término de búsqueda.' : '';
+
+    
+        return view('development-search-results', compact('developments', 'developmentsCount', 'search'))
+            ->with('message', $message);
     }
 
 
