@@ -44,10 +44,39 @@ class FrontPageController extends Controller
     }
 
     public function filterProperties(Request $request) {
-        // ... 
-        $scripts = [];
-        return view('property-search-results', compact('scripts'));
+        $search = $request->input('search');
+        $transactionType = $request->input('transaction_type'); // 'venta', 'alquiler' o 'all'
+
+        if (!in_array($transactionType, ['sell', 'rent', 'all'])) {
+            return redirect()->back()->with('message', 'Tipo de propiedad inválido');
+        }
+
+        $query = Property::where('status', 'activo');
+
+        if ($transactionType !== 'all') {
+            $query->where('transaction_type', $transactionType);
+        }
+
+        if (!empty($search)) {
+            $query->where(function ($query) use ($search) {
+                $query->where('title', 'like', "%$search%")
+                ->orWhere('description', 'like', "%$search%")
+                ->orWhere('country', 'like', "%$search%")
+                ->orWhere('state', 'like', "%$search%")
+                ->orWhere('city', 'like', "%$search%")
+                ->orWhere('neighborhood', 'like', "%$search%");
+            });
+        }
+
+        $properties = $query->paginate(20)->appends(request()->query());
+
+        $propertiesCount = $properties->total();
+        $message = ($propertiesCount == 0) ? 'No se encontraron propiedades con ese término de búsqueda.' : '';
+
+        return view('property-search-results', compact('properties', 'propertiesCount', 'search', 'transactionType'))
+            ->with('message', $message);
     }
+
     public function filterDevelopments(Request $request) {
         // ... 
         $scripts = [];
