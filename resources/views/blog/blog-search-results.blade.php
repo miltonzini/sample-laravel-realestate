@@ -9,15 +9,52 @@
     
     @include('partials.public.masthead-sm', ['pageTitle' => 'Blog: Resultados de la Búsqueda'])
 
-        <section class="work py20 px4 bg-soft-b regular-section">
-            <div class="container-wide px2">
+        <section class="actions-section py8 bg-soft-b">
+            <div class="container px2">
                 <div class="row grid">
-                    <div class="block block-col-4-14 flex flex-d-column py5 text-center">
-                        <p>(pending...)</p>
+                    <div class="block block-col-1-17 centerContent">
+                        <a class="btn btn-sm btn-outlined-primary" href="{{ url()->previous() }}">Volver</a>
                     </div>
                 </div>
             </div>
-            
+        </section>
+
+        <section class="cards py1 bg-soft-b">
+            <div class="container-wide px2">
+                <div class="row grid">
+                    <div class="block block-col-1-17 cards-wrapper">
+                    @if ($posts->isNotEmpty())
+                        @foreach ($posts as $post)
+                            <a class="card post-card" href="{{ route('blog.post', $post->slug) }}">
+                                <div class="img-wrapper">
+                                    @if (!empty($post->images))
+                                    <img src="{{ asset('public/files/img/posts/' .  $post->images->first()->thumbnail_image ) }}" alt="Lorem">
+                                    @else
+                                    <img src="{{ asset('public/img/misc/property-placeholder.png') }}" alt="Lorem">
+                                    @endif
+                                </div>
+                                <div class="content-wrapper">
+                                    {{-- <p class="category">Lorem</p> --}}
+                                    <p class="title">{{ mb_strimwidth($post->title, 0, 60, '...') }}</p>
+                                    <p class="description">{{ mb_strimwidth($post->short_description, 0, 180, '...') }}</p>
+                                    
+                                    <div class="card-footer">
+                                        <p class="created-at">{{ $post->created_at->format('d/m/Y') }}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        @endforeach
+                    @else
+                        <div class="disclaimer">No hay posts disponibles</div>
+                    @endif
+                    </div>
+                    <div class="block block-col-1-17">
+                    <div class="pagination p-4">
+                    {{ $posts->links() }}
+                    <div>
+                </div>
+                </div>
+            </div>
         </section>
 
     {{-- @include('partials.public.social-sm') --}}

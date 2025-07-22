@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Public;
 
 use App\Models\Property;
 use App\Models\Development;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
@@ -122,9 +123,15 @@ class FrontPageController extends Controller
     }
 
     public function blog() {
+        $posts = Post::where('status', 'activo')->orderBy('created_at', 'DESC')->paginate(20);
+        $postsCount = $posts->total();
+
+        $showBlogButtonInNavbar = true;
+
         $scripts = ['blog.js'];
-        return view('blog.index', compact('scripts'));
+        return view('blog.index', compact('scripts', 'posts', 'postsCount', 'showBlogButtonInNavbar'));
     }
+
     public function post($slug) {
         $post = (object)['title' => $slug]; // temp
 
@@ -133,8 +140,27 @@ class FrontPageController extends Controller
     }
     
     public function filterPosts(Request $request) {
-        $scripts = ['blog.js'];
-        return view('blog-search-results', compact('scripts'));
+        $search = $request->input('search');
+    
+        $query = Post::where('status', 'activo');
+    
+        if (!empty($search)) {
+            $query->where(function ($query) use ($search) {
+                $query->where('title', 'like', "%$search%")
+                ->orWhere('short_description', 'like', "%$search%")
+                ->orWhere('body', 'like', "%$search%");
+            });
+        }
+    
+        $posts = $query->paginate(20)->appends(request()->query());
+    
+        $postsCount = $posts->total();
+        $message = ($postsCount == 0) ? 'No se encontraron posts con ese término de búsqueda.' : '';
+
+        $showBlogButtonInNavbar = true;
+    
+        return view('blog.blog-search-results', compact('posts', 'postsCount', 'search', 'showBlogButtonInNavbar'))
+            ->with('message', $message);
     }
 
 }
