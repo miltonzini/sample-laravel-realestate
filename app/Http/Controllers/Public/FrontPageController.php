@@ -6,6 +6,7 @@ use App\Models\Property;
 use App\Models\Development;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 
@@ -39,12 +40,50 @@ class FrontPageController extends Controller
         return view('developments', compact('scripts', 'developments'));
     }
 
-    public function propertyDetails($slug) {        
-        $property = (object)['title' => $slug]; // temp
+    public function propertyDetails($slug) {
 
-        $scripts = [];
-        return view('property-details', compact('scripts', 'property'));
+        $property = Property::where('slug', $slug)
+        ->with(['images' => function($query) {
+            $query->orderBy('order', 'asc');
+        }])
+        ->first();
+
+        if (!$property) {
+            return redirect()->route('home')->with('error', 'La propiedad no existe.');
+        }
+
+        if ($property->status == 'oculto' || $property->status == 'eliminado' || $property->status == 'pausado') {
+            return redirect()->route('home')->with('error', 'La propiedad no está disponible.');
+        }
+
+        // Calc property age
+        if (!empty($property->year_built)) {
+            $currentYear = Carbon::now()->year;
+            $age = $currentYear - $property->year_built;
+            switch ($age) {
+                case 0:
+                    $property->years_age = 'Nueva';
+                    break;
+                case 1:
+                    $property->years_age = $age . ' año';
+                    break;
+                default:
+                $property->years_age = $age . ' años'; 
+            }
+        }
+
+        // content-aware layout
+        $hasVideoBlock = !empty($property->video);
+        $hasMap = !empty($property->real_address);
+        
+
+        $scripts = ['properties.js'];
+
+        $showBlogButtonInNavbar = Post::where('status', 'activo')->exists();
+
+        return view('property-details', compact('property', 'hasVideoBlock', 'hasMap', 'scripts', 'showBlogButtonInNavbar'));
     }
+
     public function developmentDetails($slug) {
         $development = (object)['title' => $slug]; // temp
 
