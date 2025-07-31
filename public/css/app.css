@@ -1285,6 +1285,7 @@ body#initial-landing-page section.post-footer-section {background: var(--cb-blue
 
 .navbar.sticky .brand {
     opacity: 100%;
+    align-self: center;
 }
 .navbar.sticky .brand img {
     height: 100%;
@@ -1479,7 +1480,9 @@ body.list-page .cards-wrapper {
     margin-top: 0;
     margin-bottom: 0;
     border-radius: 8px;
-    height: min-content;
+    height: 100%;
+    object-fit: cover;
+    object-position: center; 
 }
 .card .content-wrapper p {margin-bottom: 0;line-height: 1.3rem!important;color: inherit;}
 .card .content-wrapper .divider {display: flex;align-items: center;}

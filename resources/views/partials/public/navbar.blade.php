@@ -4,7 +4,7 @@
             <div class="brand">
                 <a href="{{ route('home') }}">
                     @if (!($hideLogoOnLoad ?? false))       
-                    <img src="{{ asset('public/img/sample-realestate-brand/sample-realestate-logo-sm.svg') }}" alt="Sample Real Estate" class="regular-navbar-logo">
+                    <img src="{{ asset('public/img/sample-realestate-brand/sample-realestate-logo-sm-negative.svg') }}" alt="Sample Real Estate" class="regular-navbar-logo">
                     @endif
                     <img src="{{ asset('public/img/sample-realestate-brand/sample-realestate-logo-sm.svg') }}" alt="Sample Real Estate" class="sticky-navbar-logo">
                 </a>
