@@ -1407,11 +1407,13 @@ body#initial-landing-page section.post-footer-section {background: var(--cb-blue
 
 /* //////  Property Gallery (for properties and developments)   ////// */
 .property-gallery {display: grid;grid-template-columns: 2fr 1fr 1fr;max-width: 100%;gap: 0.5rem;max-height: 500px;}
-.property-gallery .item {/* background: pink; */overflow: hidden;display: flex;align-items: center;justify-content: center;}
-.property-gallery .item.first-item {/* background: cyan; */grid-row: span 2;}
-.property-gallery img {width: 100%;height: 100%;object-fit: cover;display: block;border-radius: 5px;}
+.property-gallery .item {overflow: hidden;display: flex;align-items: center;justify-content: center;object-fit: cover;}
+.property-gallery .item.first-item {grid-row: span 2;}
+.property-gallery .item.first-item img {height: 100%;}
+.property-gallery .item.sm-item img {height: 220px;}
+.property-gallery img {width: 100%;object-fit: cover;display: block;border-radius: 5px;}
 @media (max-width: 767px) {
-    .property-gallery {/*background: cyan*/grid-template-columns: 1fr 1fr 1fr 1fr;max-width: 100%;gap: 0.5rem;}
+    .property-gallery {grid-template-columns: 1fr 1fr 1fr 1fr;max-width: 100%;gap: 0.5rem;}
     .property-gallery .item.first-item {grid-row: span 2;grid-column: span 4;padding-bottom: 1rem;}
 }
 

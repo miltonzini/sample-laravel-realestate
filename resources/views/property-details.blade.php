@@ -58,7 +58,7 @@
             @if($property->images->count() >= 5)
                 <div class="row property-gallery">
                     @foreach($property->images->take(5) as $key => $image)
-                        <a class="item {{ $key === 0 ? 'first-item' : '' }} GalleryImgLink" 
+                        <a class="item {{ $key === 0 ? 'first-item' : 'sm-item' }} GalleryImgLink" 
                             href="{{ asset('public/files/img/properties/' . $image->image) }}" 
                             data-lightbox="media-gallery" 
                             data-title="">
