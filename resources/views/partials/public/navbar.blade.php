@@ -1,7 +1,14 @@
 <header class="header">
     <nav class="navbar {{ $class ?? '' }}">
         <div class="nav-wrapper container-wide">
-            <div class="brand"><a href="#"><img src="{{ asset('public/img/sample-realestate-brand/sample-realestate-logo-sm.svg') }}" alt=""></a></div>
+            <div class="brand">
+                <a href="{{ route('home') }}">
+                    @if (!($hideLogoOnLoad ?? false))       
+                    <img src="{{ asset('public/img/sample-realestate-brand/sample-realestate-logo-sm.svg') }}" alt="Sample Real Estate" class="regular-navbar-logo">
+                    @endif
+                    <img src="{{ asset('public/img/sample-realestate-brand/sample-realestate-logo-sm.svg') }}" alt="Sample Real Estate" class="sticky-navbar-logo">
+                </a>
+            </div>
 
             <div class="menu-toggle">
                 <i class="fa-solid fa-bars"></i>

@@ -3,7 +3,7 @@
 {{-- @section('body-class', '') --}}
 <x-PublicLayout>
 
-@include('partials.public.navbar')
+@include('partials.public.navbar', ['hideLogoOnLoad' => true])
 
 <main class="bg-soft-b">
     <section class="text-soft px6" id="masthead">

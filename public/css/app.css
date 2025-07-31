@@ -1221,12 +1221,17 @@ body#initial-landing-page section.post-footer-section {background: var(--cb-blue
 .navbar .brand {
     transition: all 300ms ease;
     height: 2rem;
+    /* opacity: 0; */
+}
+
+.navbar .brand img.sticky-navbar-logo {
+    height: 1px;
     opacity: 0;
 }
 
-.navbar .brand img {
-    height: 1px;
-    opacity: 0;
+.navbar .brand img.regular-navbar-logo {
+    height: 100%;
+    opacity: 100%;
 }
 
 .navbar .links {
@@ -1284,6 +1289,10 @@ body#initial-landing-page section.post-footer-section {background: var(--cb-blue
 .navbar.sticky .brand img {
     height: 100%;
     opacity: 100%;
+}
+
+.navbar.sticky .brand img.regular-navbar-logo {
+    display: none;
 }
 
 .navbar.sticky .links .nav-link {color: var(--theme-primary);}
