@@ -23,12 +23,12 @@
                                 @break
                             @case('vendido')
                                 <div class="development-status-disclaimer sold">
-                                    Esta propiedad ya fue vendida
+                                    Esta emprendimiento ya fue vendido
                                 </div>
                                 @break
                              @case('reservado')
                                 <div class="development-status-disclaimer reserved">
-                                    Esta propiedad está reservada
+                                    Este emprendimiento está reservado
                                 </div>
                                 @break
                             @default

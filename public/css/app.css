@@ -27,7 +27,8 @@
     --theme-soft-c: #F0F0F0;
     --theme-dark: #1A1A1A;
     --theme-dark-b: #3D3D3D;
-    --theme-darkgray: #a6a6a6;
+    --theme-darkgray: #dbdbdb;
+    --theme-mutedgray: #dcdcdc;
     --theme-primary-dark: #0d4ecf;
     --theme-primary-dark-b: #0a3ca0;
     --theme-deepdark: #000;
@@ -1690,6 +1691,52 @@ section#property-disclaimer p {font-size: var(--fz-1);max-width: 70ch;margin-lef
 
 /* //////  Development Disclaimer   ////// */
 section#development-disclaimer p {font-size: var(--fz-1);max-width: 70ch;margin-left: auto;margin-right: auto;line-height: 1.2rem;}
+
+
+/* //////  Property Status Disclaimer   ////// */
+.property-status-disclaimer {
+    background: var(--cb-cement);
+    text-align: center;
+    padding: 1.5rem 1rem;
+    border-radius: 1rem;
+    transform: translateY(-30px);
+    max-width: 30rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.property-status-disclaimer.sold {
+    background: var(--theme-mutedgray);
+}
+.property-status-disclaimer.paused {
+    background: var(--theme-soft-danger);
+}
+.property-status-disclaimer.reserved {
+    background: var(--theme-mutedgray);
+}
+
+
+/* //////  Development Status Disclaimer   ////// */
+.development-status-disclaimer {
+    background: var(--theme-mutedgray);
+    text-align: center;
+    padding: 1.5rem 1rem;
+    border-radius: 1rem;
+    transform: translateY(-30px);
+    max-width: 30rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.development-status-disclaimer.sold {
+    background: var(--theme-mutedgray);
+}
+.development-status-disclaimer.paused {
+    background: var(--theme-soft-danger);
+}
+.development-status-disclaimer.reserved {
+    background: var(--theme-mutedgray);
+}
 
 
 /* /////////////////////////////////////////////////////////
