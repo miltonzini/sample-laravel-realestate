@@ -192,10 +192,26 @@ class FrontPageController extends Controller
     }
 
     public function post($slug) {
-        $post = (object)['title' => $slug]; // temp
+        $post = Post::where('slug', $slug)->first();
+
+        if(!$post) {
+            return redirect()->route('blog.index')->with('error', 'El post no existe.');
+        }
+
+        if($post->status != 'activo') {
+            return redirect()->route('blog.index')->with('error', 'El post no está disponible.');
+        }
+
+        $recentPosts = Post::where('id', '!=', $post->id)
+                        ->where('status', 'activo')
+                        ->orderBy('created_at', 'DESC')
+                        ->take(10)
+                        ->get();
+
+        $showBlogButtonInNavbar = true;
 
         $scripts = ['blog.js'];
-        return view('blog.post', compact('scripts','post'));
+        return view('blog.post', compact('scripts', 'post', 'recentPosts', 'showBlogButtonInNavbar'));
     }
     
     public function filterPosts(Request $request) {

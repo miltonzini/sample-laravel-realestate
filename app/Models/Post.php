@@ -29,7 +29,6 @@ class Post extends Model
         return $this->belongsTo(User::class, 'author');
     }
 
-
     public function getShortTitleAttribute()
     {
         if (strlen($this->title) >= 50) {
