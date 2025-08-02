@@ -85,10 +85,30 @@ class FrontPageController extends Controller
     }
 
     public function developmentDetails($slug) {
-        $development = (object)['title' => $slug]; // temp
 
-        $scripts = [];
-        return view('development-details', compact('scripts', 'development'));
+        $development = Development::where('slug', $slug)
+        ->with(['images' => function($query) {
+            $query->orderBy('order', 'asc');
+        }])
+        ->first();
+
+        if (!$development) {
+            return redirect()->route('home')->with('error', 'El emprendimiento no existe.');
+        }
+
+        if ($development->status == 'oculto' || $development->status == 'eliminado' || $development->status == 'pausado') {
+            return redirect()->route('home')->with('error', 'El emprendimiento no está disponible.');
+        }
+
+        // content-aware layout
+        $hasVideoBlock = !empty($development->video);
+        $hasMap = !empty($development->real_address);
+        
+        $showBlogButtonInNavbar = Post::where('status', 'activo')->exists();
+
+        $scripts = ['developments.js'];
+
+        return view('development-details', compact('development', 'hasVideoBlock', 'hasMap', 'scripts', 'showBlogButtonInNavbar'));
     }
 
     public function filterProperties(Request $request) {

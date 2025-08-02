@@ -84,6 +84,7 @@
 # PAGE / VIEW: Home
 # PAGE / VIEW: Login
 # PAGE / VIEW: Property Details
+# PAGE / VIEW: Development Details
 # PAGE / VIEW: Blog
 
 
@@ -1427,6 +1428,20 @@ body#initial-landing-page section.post-footer-section {background: var(--cb-blue
     .property-gallery .item.first-item {grid-row: span 2;grid-column: span 4;padding-bottom: 1rem;}
 }
 
+/* //////  Development Gallery ////// */
+.development-gallery {display: grid;grid-template-columns: 2fr 1fr 1fr;max-width: 100%;gap: 0.5rem;}
+.development-gallery .item {overflow: hidden;display: flex;align-items: center;justify-content: center;object-fit: cover;}
+.development-gallery .item.first-item {grid-row: span 2;}
+.development-gallery .item.first-item img {height: 100%;}
+.development-gallery .item.sm-item img {height: 220px;}
+.development-gallery img {width: 100%;object-fit: cover;display: block;border-radius: 5px;}
+
+
+@media (max-width: 767px) {
+    .development-gallery {/*background: cyan*/grid-template-columns: 1fr 1fr 1fr 1fr;max-width: 100%;gap: 0.5rem;}
+    .development-gallery .item.first-item {grid-row: span 2;grid-column: span 4;padding-bottom: 1rem;}
+}
+
 
 /* //////  Section Search Field   ////// */
 /* .section-search {background: pink} */
@@ -1624,6 +1639,43 @@ body.list-page .cards-wrapper {
     cursor: pointer;
 }
 
+/* //////  Development Form Modal   ////// */
+.modal#developmentFormModal {z-index: 650!important}
+
+.modal#developmentFormModal .modal-content {
+    color: inherit;
+    background-color: var(--theme-soft);
+    margin-top: 5rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 1.5rem;
+    max-width: 90%;
+    width: 40rem;
+    text-align: center;
+}
+.modal#developmentFormModal .modal-content h3{font-size: var(--fz-3)}
+.modal#developmentFormModal .modal-content p {line-height: 1.5rem;font-size: var(--fz-1)}
+
+
+.modal#developmentFormModal .close  {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.developmentFormModal {color: var(--theme-accent);}
+
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 
 /* //////  Centered Buttons   ////// */
 section.centered-buttons {padding-top: 4rem;padding-bottom: 4rem;}
@@ -1762,6 +1814,33 @@ body.property-details .property-map-block .map-iframe-wrapper {height: 20rem;wid
 @media (max-width: 766px) {
     body.property-details section.main-content .content-blocks-wrapper {grid-template-columns: 1fr;}
     body.property-details .property-description-block {padding-right: 0;}
+}
+
+/* /////////////////////////////////////////////////////////
+    # PAGE / VIEW: Development Details
+///////////////////////////////////////////////////////////*/
+body.development-details .development-details-header {margin-top: 4rem;padding-bottom:2rem;}
+
+body.development-details section.main-content .content-blocks-wrapper {display: grid;grid-template-columns: 1fr 1fr;row-gap: 3rem;}
+
+body.development-details section.main-content .content-blocks-wrapper .block {line-height: 1.5rem;}
+body.development-details section.main-content .content-blocks-wrapper .block .block-header {margin-bottom: 1rem;}
+body.development-details section.main-content .content-blocks-wrapper .block .block-header h4 {font-family: 'Gotham Light', sans-serif;}
+body.development-details section.main-content .content-blocks-wrapper .block li {list-style-type: none;}
+
+body.development-details .development-summary-block {background: unset;}
+
+body.development-details .development-video-block {background: unset;}
+body.development-details .development-video-block .video-iframe-wrapper {height: 20rem;width: 100%;}
+
+body.development-details .development-description-block {padding-right: 1rem;}
+
+body.development-details .development-map-block {background: unset;}
+body.development-details .development-map-block .map-iframe-wrapper {height: 20rem;width: 100%;}
+
+@media (max-width: 766px) {
+    body.development-details section.main-content .content-blocks-wrapper {grid-template-columns: 1fr;}
+    body.development-details .development-description-block {padding-right: 0;}
 }
 
 

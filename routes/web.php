@@ -50,6 +50,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout-user');
 // Public Forms Routes
 Route::post('/contact', [ContactFormController::class, 'submit'])->name('contact.submit');
 Route::post('/property-details-form/{id}', [ContactFormController::class, 'propertyDetailsInfoSubmit'])->name('property-details.form');
+Route::post('/development-details-form/{id}', [ContactFormController::class, 'developmentDetailsInfoSubmit'])->name('development-details.form');
 
 // Admin Routes
 Route::middleware([AuthMiddleware::class, PreventBackHistoryMiddleware::class])->group(function () {

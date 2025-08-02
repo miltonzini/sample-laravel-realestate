@@ -1,9 +1,9 @@
-// console.log('properties called (public)');
+// console.log('developments called (public)');
 
 document.addEventListener('DOMContentLoaded', function() {
-    const modal = document.getElementById('propertyFormModal');
-    const openModalBtn = document.getElementById('propertyDetailsFormModalAnchor');
-    const closeSpan = document.querySelector('.closePropertyDetailsFormModalSpan');
+    const modal = document.getElementById('developmentFormModal');
+    const openModalBtn = document.getElementById('developmentDetailsFormModalAnchor');
+    const closeSpan = document.querySelector('.closeDevelopmentDetailsFormModalSpan');
     
     if (!modal || !openModalBtn || !closeSpan) {
         console.error('No se encontraron los elementos necesarios para el modal');
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function closeModal() {
         modal.style.display = 'none';
         
-        const form = document.getElementById('property-details-form');
+        const form = document.getElementById('development-details-form');
         if (form) {
             form.reset();
         }
@@ -46,8 +46,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-async function contactFromPropertyDetails(action, method, data, submitButton) {
-    console.log('Enviando consulta sobre la propiedad...');
+async function contactFromDevelopmentDetails(action, method, data, submitButton) {
+    console.log('Enviando consulta sobre el emprendimiento...');
     
     submitButton.disabled = true;
     const originalValue = submitButton.value;
@@ -70,9 +70,9 @@ async function contactFromPropertyDetails(action, method, data, submitButton) {
         
         if (response.ok && responseData.success) {
             toastr.success(responseData.message || 'Mensaje enviado exitosamente');
-            document.querySelector('#property-details-form').reset();
+            document.querySelector('#development-details-form').reset();
             
-            const modal = document.querySelector('#propertyFormModal');
+            const modal = document.querySelector('#developmentFormModal');
             if (modal) modal.style.display = 'none';
         } else {
             const errors = responseData.errors || { error: responseData.message || 'Error desconocido' };
@@ -88,14 +88,14 @@ async function contactFromPropertyDetails(action, method, data, submitButton) {
   }
   
   document.addEventListener('DOMContentLoaded', function() {
-    const form = document.querySelector('#property-details-form');
+    const form = document.querySelector('#development-details-form');
     
-    if (form) {        
+    if (form) {
         form.addEventListener('submit', async function(event) {
             event.preventDefault();
             console.log('Formulario enviado');
             
-            const submitButton = this.querySelector('#property-details-contact-button');
+            const submitButton = this.querySelector('#development-details-contact-button');
             
             if (!submitButton) {
                 console.error('Botón de envío no encontrado');
@@ -112,7 +112,7 @@ async function contactFromPropertyDetails(action, method, data, submitButton) {
                 showSendingMessageToast();
             }
             
-            await contactFromPropertyDetails(action, method, formData, submitButton);
+            await contactFromDevelopmentDetails(action, method, formData, submitButton);
         });
     } else {
         console.warn('Formulario no encontrado en el DOM');
