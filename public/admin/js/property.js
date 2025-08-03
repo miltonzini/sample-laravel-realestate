@@ -439,7 +439,7 @@ if (document.body.id === 'admin-properties-edit') {
                 if (responseData.success) {
                     toastr.success(responseData.message);
                     location.reload();
-                    window.location.href = baseUrl + '/admin/listado-propiedades';
+                    // window.location.href = baseUrl + '/admin/listado-propiedades';
                 }
             } else {
                 const responseData = await response.json();

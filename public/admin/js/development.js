@@ -436,7 +436,7 @@ if (document.body.id === 'admin-developments-edit') {
                 if (responseData.success) {
                     toastr.success(responseData.message);
                     location.reload();
-                    window.location.href = baseUrl + '/admin/listado-emprendimientos';
+                    // window.location.href = baseUrl + '/admin/listado-emprendimientos';
                 }
             } else {
                 const responseData = await response.json();

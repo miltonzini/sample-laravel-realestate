@@ -301,7 +301,8 @@ if (document.body.id === 'admin-edit-post') {
                 const responseData = await response.json();
                 if (responseData.success) {
                     toastr.success(responseData.message || 'Post actualizado correctamente');
-                    window.location.href = baseUrl + '/admin/listado-posts';
+                    location.reload();
+                    // window.location.href = baseUrl + '/admin/listado-posts';
                 } else {
                     toastr.error(responseData.message || 'Hubo un error al actualizar el post');
                 }
