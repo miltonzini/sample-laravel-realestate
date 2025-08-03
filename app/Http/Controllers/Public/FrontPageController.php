@@ -13,7 +13,6 @@ use App\Http\Controllers\Controller;
 class FrontPageController extends Controller
 {
     public function home() {
-        // Log::channel('debug')->info('testing custom log');
         $scripts = [];
         return view('home', compact('scripts'));
     }

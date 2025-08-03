@@ -17,7 +17,9 @@
             <div class="links flex flex-ai-c">
                 <a href="{{ route('properties') }}" class="nav-link">Propiedades</a>
                 <a href="{{ route('developments') }}" class="nav-link">Emprendimientos</a>
-                <a href="{{ route('blog.index') }}" class="nav-link">Blog</a>
+                @if($showBlogButtonInNavbar == true ?? false)
+                    <a href="{{ route('blog.index') }}" class="nav-link">Blog</a>
+                @endif
                 <a href="#contact" class="btn btn-primary">Contactanos</a>
             </div>
         </div>
