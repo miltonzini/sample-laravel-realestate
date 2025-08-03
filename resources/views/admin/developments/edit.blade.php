@@ -12,6 +12,12 @@
         <form action="{{ route('admin.developments.update', ['id' => $development->id]) }}" method="post" id="edit-development-form">
             @csrf
             <div class="grid">
+              <div class="block block-col-1-17">
+                <div class="option-buttons-wrapper">
+                    <a href="{{ route('developmentDetails', $development->slug) }}" class="btn-sm btn-outlined-primary" target="_blank">Ver emprendimiento</a>
+                    <a href="{{ route('admin.developments.index') }}" class="btn-sm btn-outlined-primary">Volver a listado</a>
+                </div>
+              </div>
               <div class="block block-col-1-17 my6">
                 <h3>General</h3>
               </div>
@@ -190,7 +196,9 @@
               <div class="block block-col-1-17 my6"><hr class="divider"></div>
 
               <div class="block block-col-1-17 my6">
-                <div class="btn-wrapper text-center"><button type="submit" class="btn btn-primary" id="edit-development-button">Guardar</button></div>
+                <div class="btn-wrapper text-center">
+                  <button type="submit" class="btn-lg btn-accent" id="edit-development-button">Guardar</button>
+                </div>
               </div>
             </div>
         </form>

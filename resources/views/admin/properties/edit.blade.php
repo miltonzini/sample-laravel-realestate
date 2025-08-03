@@ -12,6 +12,12 @@
         <form action="{{ route('admin.properties.update', ['id' => $property->id]) }}" method="post" id="edit-property-form">            
             @csrf
             <div class="grid">
+              <div class="block block-col-1-17">
+                <div class="option-buttons-wrapper">
+                    <a href="{{ route('propertyDetails', $property->slug) }}" class="btn-sm btn-outlined-primary" target="_blank">Ver propiedad</a>
+                    <a href="{{ route('admin.properties.index') }}" class="btn-sm btn-outlined-primary">Volver a listado</a>
+                </div>
+              </div>
               <div class="block block-col-1-17 my6">
                 <h3>General</h3>
               </div>
@@ -245,8 +251,9 @@
               <div class="block block-col-1-17 my6"><hr class="divider"></div>
 
               <div class="block block-col-1-17 my6">
-                <div class="btn-wrapper text-center"><button type="submit" class="btn btn-primary" id="edit-property-button">Guardar</button></div>
-              </div>
+                <div class="btn-wrapper text-center">
+                    <button type="submit" class="btn-lg btn-accent" id="edit-property-button">Guardar</button>
+                </div>
             </div>
         </form>
         

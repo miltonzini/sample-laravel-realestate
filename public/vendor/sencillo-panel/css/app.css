@@ -133,8 +133,9 @@ body.collapsed aside {
     color: var(--sencillo-soft);
 }
 
-.btn {font-size:1rem;border-radius: 1rem;cursor: pointer;padding: 0.25rem 0.5rem;transition:all 300ms ease;}
-.btn-sm {font-size:0.8rem;border-radius: 1rem;cursor: pointer;padding: 0.10rem 0.5rem;transition:all 300ms ease;}
+.btn {font-size:1rem;border-radius: 1rem;cursor: pointer;padding: 0.25rem 1rem;transition:all 300ms ease;}
+.btn-sm {font-size:0.8rem;border-radius: 1rem;cursor: pointer;padding: 0.2rem 1rem;transition:all 300ms ease;}
+.btn-lg {font-size:1.3rem;border-radius: 1rem;cursor: pointer;padding: 0.25rem 1rem;transition:all 300ms ease;}
 
 .btn-primary {background-color: var(--theme-primary);}
 .btn-secondary {background-color: var(--sencillo-secondary);}
@@ -235,6 +236,7 @@ aside .aside-footer .sencillostudio-brand-wrapper img {width: 4rem; max-width: 9
  
 
 
+.option-buttons-wrapper {display: flex;justify-content: flex-end;column-gap: 0.6rem;}
 
 main {
     grid-column: 2 / 3;
