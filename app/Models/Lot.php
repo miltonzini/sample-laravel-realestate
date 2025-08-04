@@ -41,8 +41,12 @@ class Lot extends Model
         'seller_notes'
     ];
 
+    public function images()
+    {
+        return $this->hasMany(LotImage::class)->orderBy('order');
+    }
     
-    // Enable $property->short_location on read (accessor)
+    // Enable $lot->short_location on read (accessor)
     public function getShortLocationAttribute()
     {
         if (in_array($this->state, ['Capital Federal', 'CABA', 'Ciudad Autónoma de Buenos Aires'])) {
@@ -51,7 +55,7 @@ class Lot extends Model
         return $this->city . ', ' . $this->state;
     }
 
-    // Enable $property->short_title on read (accessor)
+    // Enable $lot->short_title on read (accessor)
     public function getShortTitleAttribute() {
         if (strlen($this->title) >= 50) {
             return substr($this->title, 0, 47) . '...';
