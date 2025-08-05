@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Admin\Misc\UserController;
 use App\Http\Controllers\Admin\Misc\PropertyController;
 use App\Http\Controllers\Admin\Misc\DevelopmentController;
+use App\Http\Controllers\Admin\Misc\LotController;
 use App\Http\Controllers\Admin\Misc\BlogController;
 use App\Http\Controllers\Public\FrontPageController; 
 use App\Http\Controllers\Admin\Views\DashboardController;
@@ -84,6 +85,15 @@ Route::middleware([AuthMiddleware::class, PreventBackHistoryMiddleware::class])-
         Route::get('/editar-emprendimiento/{id}', [DevelopmentController::class, 'edit'])->name('admin.developments.edit');
         Route::post('/actualizar-emprendimiento/{id}', [DevelopmentController::class, 'update'])->name('admin.developments.update'); 
         Route::delete('/eliminar-emprendimiento/{id}', [DevelopmentController::class, 'delete'])->name('admin.developments.delete'); 
+
+        // Lots
+        Route::get('/listado-lotes-terrenos', [LotController::class, 'index'])->name('admin.lots.index');
+        Route::post('/listado-lotes-terrenos', [LotController::class, 'search'])->name('admin.lots.search');
+        Route::get('/crear-lote-terreno', [LotController::class, 'create'])->name('admin.lots.create');
+        Route::post('/guardar-lote-terreno', [LotController::class, 'store'])->name('admin.lots.store');
+        Route::get('/editar-lote-terreno/{id}', [LotController::class, 'edit'])->name('admin.lots.edit');
+        Route::post('/actualizar-lote-terreno/{id}', [LotController::class, 'update'])->name('admin.lots.update'); 
+        Route::delete('/eliminar-lote-terreno/{id}', [LotController::class, 'delete'])->name('admin.lots.delete');
         
         // Blog
         Route::get('/listado-posts', [BlogController::class, 'index'])->name('admin.blog.index');

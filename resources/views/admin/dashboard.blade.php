@@ -19,6 +19,10 @@
                 <div class="number">{{ $developmentsCount }}</div>
                 <div class="title">Emprendimientos</div>
             </a>
+            <a class="item rounded-4" href="{{ route('admin.lots.index') }}">
+                <div class="number">{{ $lotsCount }}</div>
+                <div class="title">Lotes/Terrenos</div>
+            </a>
             <a class="item rounded-4" href="{{ route('admin.blog.index') }}">
                 <div class="number">{{ $postsCount }}</div>
                 <div class="title">Posts</div>

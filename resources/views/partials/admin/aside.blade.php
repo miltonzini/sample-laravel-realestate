@@ -31,6 +31,13 @@
             </ul>
         </div>
         <div class="aside-category">
+            <h4 class="aside-category-title">Lotes/Terrenos</h4>
+            <ul>
+                <a href="{{ route('admin.lots.create') }}"><li class="item {{ setActiveRoute('admin.lots.create') }}"><i class="bi bi-houses-fill"></i> Nuevo Lote/Terreno</li></a>
+                <a href="{{ route('admin.lots.index') }}"><li class="item {{ setActiveRoute('admin.lots.index') }}"><i class="bi bi-houses-fill"></i> Ver Lotes/Terrenos</li></a>
+            </ul>
+        </div>
+        <div class="aside-category">
             <h4 class="aside-category-title">Blog</h4>
                 <ul>
                 <a href="{{ route('admin.blog.create') }}"><li class="item {{ setActiveRoute('admin.usblogers.create') }}"><i class="bi bi-file-text-fill"></i> Nuevo Post</li></a>
