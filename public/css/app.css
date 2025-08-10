@@ -1954,8 +1954,9 @@ body.admin .thumbnail-wrapper {position: relative;}
 body.admin .thumbnail-wrapper .file-name {font-size: 12px;color: #666;display: block;margin-left: 10px;max-width: 100%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
 body.admin #image-preview-container .preview-thumbnail {max-width: 150px; margin: 10px 10px 0 10px;}
 body.admin .btn-remove-property-image,
-body.admin .btn-remove-post-image,
-body.admin .btn-remove-development-image {    
+body.admin .btn-remove-development-image,
+body.admin .btn-remove-lot-image,
+body.admin .btn-remove-post-image {
     position: absolute;
     top: 1rem;
     right: 1rem;
