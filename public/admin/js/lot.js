@@ -453,3 +453,128 @@ if (document.body.id === 'admin-lots-edit') {
         }
     }
 }
+
+
+// Body #admin-lots-index
+if (document.body.id === 'admin-lots-index') {
+    console.log('Code specific to Lot/Index');
+
+    async function deleteLot(lotId) {
+        const deleteButton = document.querySelector(`#deleteLotAnchor-${lotId}`);
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        
+        try {
+            deleteButton.classList.add('disabled');
+            deleteButton.textContent = 'Eliminando...';
+    
+            const formData = new FormData();
+            formData.append('_method', 'DELETE');
+    
+            const response = await fetch(`eliminar-lote-terreno/${lotId}`, {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': csrfToken,
+                },
+                body: formData
+            });
+    
+            if (response.ok) {
+                const responseData = await response.json();
+                if (responseData.success) {
+                    sessionStorage.setItem('deleteLotMessage', responseData.message);
+                    window.location.reload();
+                    return; 
+                }
+            } else {
+                const responseData = await response.json();
+                if (responseData.errors) {
+                    Object.values(responseData.errors).forEach(function(value) {
+                        toastr.error(value);
+                    });
+                } else {
+                    toastr.error(responseData.message || "Error al eliminar el lote/terreno");
+                }
+            }
+        } catch (error) {
+            console.error("Error de red al intentar eliminar el lote/terreno", error);
+            toastr.error("Error al intentar eliminar el lote/terreno");
+        } finally {
+            deleteButton.classList.remove('disabled');
+            deleteButton.textContent = 'Eliminar';
+        }
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedMessage = sessionStorage.getItem('deleteLotMessage');
+        if (savedMessage) {
+            toastr.success(savedMessage);
+            sessionStorage.removeItem('deleteLotMessage');
+        }
+    
+        document.querySelectorAll('[id^="deleteLotAnchor-"]').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const lotId = button.id.split('-')[1];
+                deleteLot(lotId);
+            });
+        });
+    });
+}
+
+
+
+// Properties -> index -> delete lot modal
+document.addEventListener('DOMContentLoaded', function() {
+    document.body.addEventListener('click', function(event) {
+        const openModalBtn = event.target.closest('[id^="deleteLotModalAnchor-"]');
+        if (openModalBtn) {
+            const lotId = openModalBtn.id.split('-').pop();
+            const modal = document.getElementById(`deleteLotModal-${lotId}`);
+            if (modal) {
+                modal.style.display = 'block';
+            } else {
+                console.error(`Modal con ID deleteLotModal-${lotId} no encontrado`);
+            }
+        }
+    });
+
+    document.body.addEventListener('click', function(event) {
+        if (event.target.classList.contains('deleteLotModal') || 
+            event.target.classList.contains('cancel-button')) {
+            const modal = event.target.closest('.modal');
+            if (modal) {
+                closeModal(modal);
+            }
+        }
+    });
+
+    window.addEventListener('click', function(event) {
+        const modal = event.target.closest('.modal');
+        if (modal && event.target === modal) {
+            closeModal(modal);
+        }
+    });
+
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(function(modal) {
+                if (modal.style.display === 'block') {
+                    closeModal(modal);
+                }
+            });
+        }
+    });
+
+    function closeModal(modal) {
+        modal.style.display = 'none';
+    }
+
+    document.body.addEventListener('click', function(event) {
+        const modalContent = event.target.closest('.modal-content');
+        if (modalContent) {
+            event.stopPropagation();
+        }
+    });
+});

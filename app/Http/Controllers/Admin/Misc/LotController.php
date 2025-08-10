@@ -497,10 +497,52 @@ class LotController extends Controller
     }
 
     public function delete($id) {
-        // ...
+        $lot = Lot::where('id', $id)
+        ->with(['images' => function($query) {
+            $query->orderBy('order', 'asc');
+        }])
+        ->first();
+
+        if (!$lot) {
+            return Response()->json([
+                'success' => false,
+                'message' => 'No se ha encontrado el lote/terreno'
+            ]);
+        }
+
+        foreach($lot->images as $image) {
+
+            if ($image) {
+                $basePath = public_path('/files/img/lots/');
+                if (file_exists($basePath . $image->image)) {
+                    unlink($basePath . $image->image);
+                }
+                if (file_exists($basePath . $image->medium_image)) {
+                    unlink($basePath . $image->medium_image);
+                }
+                if (file_exists($basePath . $image->thumbnail_image)) {
+                    unlink($basePath . $image->thumbnail_image);
+                }
+                $image->delete();
+            }
+        }
+
+        $lot->delete();
+
+
+        return response()->json([
+            'success' => true, 
+            'message' => 'El lote/terreno se eliminó con éxito'
+        ]);
     }
 
     public function search(Request $request) {
-        // ...
+        $search = $request->search;
+        $lots = Lot::where('title', 'like', "%$search%")
+                    ->orWhere('description', 'like', "%$search%")
+                    ->paginate(20);
+        $lotsCount = $lots->total();
+        $scripts = [''];
+        return view('admin.lots.index', compact('lots', 'lotsCount', 'scripts', 'search'));
     }
 }
