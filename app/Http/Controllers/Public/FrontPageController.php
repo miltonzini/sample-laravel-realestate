@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Public;
 
 use App\Models\Property;
 use App\Models\Development;
+use App\Models\Lot;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -28,6 +29,7 @@ class FrontPageController extends Controller
         $scripts = [];
         return view('properties', compact('scripts', 'properties'));
     }
+    
     public function developments() {
         $developments = Development::where('status', 'activo')
         ->with(['images' => function ($query) {
@@ -37,6 +39,17 @@ class FrontPageController extends Controller
 
         $scripts = [''];
         return view('developments', compact('scripts', 'developments'));
+    }
+
+    public function lots() {
+        $lots = Lot::where('status', 'activo')
+        ->with(['images' => function ($query) {
+            $query->orderBy('order', 'asc')->take(1);
+        }])
+        ->paginate(20);
+
+        $scripts = [''];
+        return view('lots', compact('scripts', 'lots'));
     }
 
     public function propertyDetails($slug) {
@@ -167,6 +180,32 @@ class FrontPageController extends Controller
 
     
         return view('development-search-results', compact('developments', 'developmentsCount', 'search'))
+            ->with('message', $message);
+    }
+
+    public function filterLots(Request $request) {
+        $search = $request->input('search');
+    
+        $query = Lot::where('status', 'activo');
+    
+        if (!empty($search)) {
+            $query->where(function ($query) use ($search) {
+                $query->where('title', 'like', "%$search%")
+                ->orWhere('description', 'like', "%$search%")
+                ->orWhere('country', 'like', "%$search%")
+                ->orWhere('state', 'like', "%$search%")
+                ->orWhere('city', 'like', "%$search%")
+                ->orWhere('neighborhood', 'like', "%$search%");
+            });
+        }
+    
+        $lots = $query->paginate(20)->appends(request()->query());
+    
+        $lotsCount = $lots->total();
+        $message = ($lotsCount == 0) ? 'No se encontraron lotes/terrenos con ese término de búsqueda.' : '';
+
+    
+        return view('lot-search-results', compact('lots', 'lotsCount', 'search'))
             ->with('message', $message);
     }
 

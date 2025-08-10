@@ -35,6 +35,9 @@ Route::get('/emprendimientos', [FrontPageController::class, 'developments'])->na
 Route::get('/emprendimientos/{slug}', [FrontPageController::class, 'developmentDetails'])->name('developmentDetails');
 Route::get('/filtrar-emprendimientos', [FrontPageController::class, 'filterDevelopments'])->name('filterDevelopments');
 
+Route::get('/lotes-terrenos', [FrontPageController::class, 'lots'])->name('lots');
+Route::get('/filtrar-lotes-terrenos', [FrontPageController::class, 'filterLots'])->name('filterLots');
+
 
 Route::get('/sumate-al-equipo', [FrontPageController::class, 'joinOurTeam'])->name('joinOurTeam');
 

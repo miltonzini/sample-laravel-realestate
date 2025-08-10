@@ -34,6 +34,8 @@ class AppServiceProvider extends ServiceProvider
             'developments',
             'development-details',
             'development-search-results',
+            'lots',
+            'lot-search-results',
             'join-our-team',
             
             // Vistas del blog
