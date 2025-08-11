@@ -91,9 +91,7 @@ class FrontPageController extends Controller
 
         $scripts = ['properties.js'];
 
-        $showBlogButtonInNavbar = Post::where('status', 'activo')->exists();
-
-        return view('property-details', compact('property', 'hasVideoBlock', 'hasMap', 'scripts', 'showBlogButtonInNavbar'));
+        return view('property-details', compact('property', 'hasVideoBlock', 'hasMap', 'scripts'));
     }
 
     public function developmentDetails($slug) {
@@ -116,11 +114,9 @@ class FrontPageController extends Controller
         $hasVideoBlock = !empty($development->video);
         $hasMap = !empty($development->real_address);
         
-        $showBlogButtonInNavbar = Post::where('status', 'activo')->exists();
-
         $scripts = ['developments.js'];
 
-        return view('development-details', compact('development', 'hasVideoBlock', 'hasMap', 'scripts', 'showBlogButtonInNavbar'));
+        return view('development-details', compact('development', 'hasVideoBlock', 'hasMap', 'scripts'));
     }
 
     public function lotDetails($slug) {
@@ -235,11 +231,11 @@ class FrontPageController extends Controller
             ->with('message', $message);
     }
 
-
     public function faq() {
         $scripts = [];
         return view('faq', compact('scripts'));
     }
+
     public function joinOurTeam() {
         $scripts = [];
         return view('join-our-team', compact('scripts'));
@@ -249,10 +245,8 @@ class FrontPageController extends Controller
         $posts = Post::where('status', 'activo')->orderBy('created_at', 'DESC')->paginate(20);
         $postsCount = $posts->total();
 
-        $showBlogButtonInNavbar = true;
-
         $scripts = ['blog.js'];
-        return view('blog.index', compact('scripts', 'posts', 'postsCount', 'showBlogButtonInNavbar'));
+        return view('blog.index', compact('scripts', 'posts', 'postsCount'));
     }
 
     public function post($slug) {
@@ -272,10 +266,8 @@ class FrontPageController extends Controller
                         ->take(10)
                         ->get();
 
-        $showBlogButtonInNavbar = true;
-
         $scripts = ['blog.js'];
-        return view('blog.post', compact('scripts', 'post', 'recentPosts', 'showBlogButtonInNavbar'));
+        return view('blog.post', compact('scripts', 'post', 'recentPosts'));
     }
     
     public function filterPosts(Request $request) {
@@ -296,9 +288,7 @@ class FrontPageController extends Controller
         $postsCount = $posts->total();
         $message = ($postsCount == 0) ? 'No se encontraron posts con ese término de búsqueda.' : '';
 
-        $showBlogButtonInNavbar = true;
-    
-        return view('blog.blog-search-results', compact('posts', 'postsCount', 'search', 'showBlogButtonInNavbar'))
+        return view('blog.blog-search-results', compact('posts', 'postsCount', 'search'))
             ->with('message', $message);
     }
 

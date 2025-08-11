@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Property;
 use App\Models\Development;
+use App\Models\Lot;
 use App\Models\User;
 use App\Models\Post;
 
@@ -14,7 +15,7 @@ class DashboardController extends Controller
     public function showDashboard() {
         $propertiesCount = Property::count();
         $developmentsCount = Development::count();
-        $lotsCount = 27; // temp value
+        $lotsCount = Lot::count();
         $postsCount = Post::count();
         $usersCount = User::count();
 
