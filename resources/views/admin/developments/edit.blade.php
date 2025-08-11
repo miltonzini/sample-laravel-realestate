@@ -14,8 +14,8 @@
             <div class="grid">
               <div class="block block-col-1-17">
                 <div class="option-buttons-wrapper">
-                    <a href="{{ route('developmentDetails', $development->slug) }}" class="btn-sm btn-outlined-primary" target="_blank">Ver emprendimiento</a>
-                    <a href="{{ route('admin.developments.index') }}" class="btn-sm btn-outlined-primary">Volver a listado</a>
+                    <a href="{{ route('developmentDetails', $development->slug) }}" class="btn-sm btn-outlined-primary" target="_blank">ver emprendimiento</a>
+                    <a href="{{ route('admin.developments.index') }}" class="btn-sm btn-outlined-primary">volver al listado</a>
                 </div>
               </div>
               <div class="block block-col-1-17 my6">

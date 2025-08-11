@@ -12,6 +12,12 @@
         <form action="{{ route('admin.lots.update', ['id' => $lot->id]) }}" method="post" id="edit-lot-form">
             @csrf
             <div class="grid">
+              <div class="block block-col-1-17">
+                <div class="option-buttons-wrapper">
+                    <a href="{{ route('lotDetails', $lot->slug) }}" class="btn-sm btn-outlined-primary" target="_blank">ver lote/terreno</a>
+                    <a href="{{ route('admin.lots.index') }}" class="btn-sm btn-outlined-primary">volver al listado</a>
+                </div>
+              </div>
               <div class="block block-col-1-17 my6">
                 <h3>General</h3>
               </div>

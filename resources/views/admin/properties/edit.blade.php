@@ -14,8 +14,8 @@
             <div class="grid">
               <div class="block block-col-1-17">
                 <div class="option-buttons-wrapper">
-                    <a href="{{ route('propertyDetails', $property->slug) }}" class="btn-sm btn-outlined-primary" target="_blank">Ver propiedad</a>
-                    <a href="{{ route('admin.properties.index') }}" class="btn-sm btn-outlined-primary">Volver a listado</a>
+                    <a href="{{ route('propertyDetails', $property->slug) }}" class="btn-sm btn-outlined-primary" target="_blank">ver propiedad</a>
+                    <a href="{{ route('admin.properties.index') }}" class="btn-sm btn-outlined-primary">volver al listado</a>
                 </div>
               </div>
               <div class="block block-col-1-17 my6">
