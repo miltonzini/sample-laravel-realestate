@@ -123,6 +123,32 @@ class FrontPageController extends Controller
         return view('development-details', compact('development', 'hasVideoBlock', 'hasMap', 'scripts', 'showBlogButtonInNavbar'));
     }
 
+    public function lotDetails($slug) {
+
+        $lot = Lot::where('slug', $slug)
+        ->with(['images' => function($query) {
+            $query->orderBy('order', 'asc');
+        }])
+        ->first();
+
+        if (!$lot) {
+            return redirect()->route('home')->with('error', 'El Lote/Terreno no existe.');
+        }
+
+        if ($lot->status == 'oculto' || $lot->status == 'eliminado' || $lot->status == 'pausado') {
+            return redirect()->route('home')->with('error', 'El Lote/Terreno no está disponible.');
+        }
+
+        // content-aware layout
+        $hasVideoBlock = !empty($lot->video);
+        $hasMap = !empty($lot->real_address);
+        
+
+        $scripts = ['lots.js'];
+
+        return view('lot-details', compact('lot', 'hasVideoBlock', 'hasMap', 'scripts'));
+    }
+
     public function filterProperties(Request $request) {
         $search = $request->input('search');
         $transactionType = $request->input('transaction_type'); // 'venta', 'alquiler' o 'all'

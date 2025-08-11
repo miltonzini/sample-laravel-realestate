@@ -36,6 +36,7 @@ Route::get('/emprendimientos/{slug}', [FrontPageController::class, 'developmentD
 Route::get('/filtrar-emprendimientos', [FrontPageController::class, 'filterDevelopments'])->name('filterDevelopments');
 
 Route::get('/lotes-terrenos', [FrontPageController::class, 'lots'])->name('lots');
+Route::get('/lotes-terrenos/{slug}', [FrontPageController::class, 'lotDetails'])->name('lotDetails');
 Route::get('/filtrar-lotes-terrenos', [FrontPageController::class, 'filterLots'])->name('filterLots');
 
 
@@ -55,6 +56,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout-user');
 Route::post('/contact', [ContactFormController::class, 'submit'])->name('contact.submit');
 Route::post('/property-details-form/{id}', [ContactFormController::class, 'propertyDetailsInfoSubmit'])->name('property-details.form');
 Route::post('/development-details-form/{id}', [ContactFormController::class, 'developmentDetailsInfoSubmit'])->name('development-details.form');
+Route::post('/lot-details-form/{id}', [ContactFormController::class, 'lotDetailsInfoSubmit'])->name('lot-details.form');
 
 // Admin Routes
 Route::middleware([AuthMiddleware::class, PreventBackHistoryMiddleware::class])->group(function () {

@@ -35,6 +35,7 @@ class AppServiceProvider extends ServiceProvider
             'development-details',
             'development-search-results',
             'lots',
+            'lot-details',
             'lot-search-results',
             'join-our-team',
             

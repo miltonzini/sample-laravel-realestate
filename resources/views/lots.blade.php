@@ -38,7 +38,7 @@
                 <div class="block block-col-1-17 cards-wrapper">
                 @if ($lots->isNotEmpty())
                     @foreach ($lots as $lot)
-                        <a class="card property-card" href="{{-- route('lotDetails', $lot->slug) --}}">
+                        <a class="card property-card" href="{{ route('lotDetails', $lot->slug) }}">
                             <div class="img-wrapper">
                                 @if (!empty($lot->images) && isset($lot->images[0]->thumbnail_image))
                                     <img src="{{ asset('public/files/img/lots/' . $lot->images[0]->thumbnail_image) }}" alt="{{ $lot->images[0]->img_alt}}">
