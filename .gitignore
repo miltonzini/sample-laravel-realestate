@@ -19,3 +19,4 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+db_dumps/sample_laravel_realestate.sql
