@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="{{ asset('public/vendor/sencillo/utilities.css') }}">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Begin Sencillo Admin styles and CDN´s-->
     <link href="{{ asset('public/vendor/sencillo-panel/vendor/cssreset.css') }}" rel="stylesheet" type="text/css">

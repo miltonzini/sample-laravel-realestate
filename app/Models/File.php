@@ -72,7 +72,7 @@ class File extends Model
      */
     public function getFileUrlAttribute()
     {
-        return asset('storage/' . $this->file_path);
+        return asset($this->file_path);
     }
 
     public function getIsImageAttribute()

@@ -197,6 +197,46 @@
                 </div>
               </div>
 
+              <div class="block block-col-1-17 my6">
+                <h4>Archivos</h4>
+              </div>
+              
+              <div class="block block-col-1-17 my6">
+                <label for="files">Seleccionar archivos <small>(PDF, DOC, TXT, etc.)</small></label>
+                <input type="file" id="files" name="files[]" multiple accept=".pdf,.doc,.docx,.txt,.rtf" class="form-control">
+              </div>
+              <div class="block block-col-1-17 my6">
+                <div id="file-preview-container" class="sortable-list">
+                  <!-- Archivos existentes -->
+                  @foreach($development->files as $file)
+                      <div class="file-item" data-file-index="{{ $loop->index }}" data-file-type="existing" data-file-id="{{ $file->id }}">
+                          <div class="file-wrapper">
+                              <a href="javascript:void(0)" class="btn-remove-development-file">X</a>
+                              <div class="file-icon">
+                                  <i class="fas {{ $file->file_icon }}"></i>
+                              </div>
+                              <div class="file-info">
+                                  <input type="text" name="existing_button_text[]" value="{{ $file->button_text }}" placeholder="Texto del botón" class="file-button-text">
+                                  <input type="text" name="existing_description[]" value="{{ $file->description }}" placeholder="Descripción (opcional)" class="file-description">
+                                  <input type="hidden" name="file_order[]" value="{{ $file->order }}">
+                                  <input type="hidden" name="file_id[]" value="{{ $file->id }}">
+                                  <span class="file-details">
+                                      {{ $file->original_name }} ({{ $file->file_size_human }})
+                                  </span>
+                              </div>
+                              <div class="file-actions">
+                                  <select name="existing_is_public[]" class="file-visibility">
+                                      <option value="1" {{ $file->is_public ? 'selected' : '' }}>Público</option>
+                                      <option value="0" {{ !$file->is_public ? 'selected' : '' }}>Privado</option>
+                                  </select>
+                                  
+                              </div>
+                          </div>
+                      </div>
+                  @endforeach
+                </div>
+              </div>
+
               <div class="block block-col-1-17 my6"><hr class="divider"></div>
 
               <div class="block block-col-1-17 my6">

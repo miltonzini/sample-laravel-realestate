@@ -2105,3 +2105,106 @@ body.admin .dashboard-summary-section .item .title {font-weight: 600;}
 
 /* //////  Coming Soon disclaimer   ////// */
 .coming-soon-disclaimer { background: rgb(190 255 82 / 33%);color: gray;padding: 2rem 4rem;display: flex;justify-content: center;max-width: fit-content;border-radius: 1rem;font-weight: bold;}
+
+
+/* Estilos para archivos */
+body.admin .file-item {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    margin-bottom: 0.5rem;
+    padding: 1rem;
+    position: relative;
+}
+
+body.admin .file-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+body.admin .file-icon {
+    font-size: 2rem;
+    color: #6c757d;
+    min-width: 3rem;
+    text-align: center;
+}
+
+body.admin .file-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+body.admin .file-button-text,
+body.admin .file-description {
+    margin-bottom: 0;
+    padding: 0.5rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+}
+
+body.admin .file-details {
+    font-size: 0.875rem;
+    color: #6c757d;
+    font-style: italic;
+}
+
+body.admin .file-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+}
+
+body.admin .file-visibility {
+    padding: 0.25rem 0.5rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    background: white;
+    margin-bottom: 0;
+}
+
+body.admin .btn-remove-development-file {
+    background: var(--theme-danger);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 0.7rem;
+    padding: 0.6rem;
+    font-weight: bold;
+    top: 0;
+    position: absolute;
+    right: 0;
+    transform: translate(-8px, 8px);
+}
+
+body.admin .btn-remove-development-file:hover {
+    background: #dc3545;
+    color: white;
+}
+
+/* Responsive para archivos */
+@media (max-width: 768px) {
+    body.admin .file-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+        position: relative;
+    }
+    
+    body.admin .file-actions {
+        align-items: stretch;
+    }
+    
+    body.admin .file-visibility {
+        width: 100%;
+    }
+}

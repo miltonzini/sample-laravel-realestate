@@ -7,6 +7,7 @@ use App\Models\Development;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\DevelopmentImage;    
+use App\Models\File;    
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -219,9 +220,14 @@ class DevelopmentController extends Controller
     }
 
     public function edit($id) {
-        $development = Development::with(['images' => function($query) {
-            $query->orderBy('order', 'asc');
-        }])->find($id);
+        $development = Development::with([
+            'images' => function($query) {
+                $query->orderBy('order', 'asc');
+            },
+            'files' => function($query) {
+                $query->orderBy('order', 'asc');
+            }
+        ])->find($id);
 
         if (!$development) {
             return redirect()->route('home')->with('error', 'El emprendimiento no existe.');
@@ -530,13 +536,123 @@ class DevelopmentController extends Controller
             }
         }
 
+        // Handle deleted files
+        if ($request->has('deleted_files')) {
+            $deletedFiles = $request->input('deleted_files');
+            foreach ($deletedFiles as $fileId) {
+                $file = File::find($fileId);
+                if ($file) {
+                    $filePath = public_path('/files/docs/developments/'); 
+                    if (file_exists($filePath . $file->file_name)) {
+                        unlink($filePath . $file->file_name);
+                    }
+                    $file->delete();
+                }
+            }
+        }
+
+        // Handle existing files update
+        if ($request->has('existing_button_text')) {
+            $existingButtonTexts = $request->input('existing_button_text', []);
+            $existingDescriptions = $request->input('existing_description', []);
+            $existingIsPublic = $request->input('existing_is_public', []);
+            $fileIds = $request->input('file_id', []);
+            
+            foreach ($fileIds as $index => $fileId) {
+                $file = File::find($fileId);
+                if ($file) {
+                    $file->button_text = $existingButtonTexts[$index] ?? $file->button_text;
+                    $file->description = $existingDescriptions[$index] ?? $file->description;
+                    $file->is_public = isset($existingIsPublic[$index]) ? (bool)$existingIsPublic[$index] : $file->is_public;
+                    $file->save();
+                }
+            }
+        }
+
+        // Handle file ordering and new files - AQUÍ ESTÁ LA CORRECCIÓN PRINCIPAL
+        if ($request->has('file_order')) {
+            $fileOrder = $request->input('file_order');
+            $maxFileOrder = -1;
+            
+            // First process existing files order
+            foreach ($fileOrder as $index => $fileId) {
+                if (is_numeric($fileId)) {
+                    $file = File::find($fileId);
+                    if ($file) {
+                        $file->order = $index;
+                        $maxFileOrder = max($maxFileOrder, $index);
+                        $file->save();
+                    }
+                }
+            }
+            
+            // Then process new files - CORREGIDO
+            if ($request->hasFile('files')) {
+                $files = $request->file('files');
+                $newButtonTexts = $request->input('new_button_text', []);
+                $newDescriptions = $request->input('new_description', []);
+                $newIsPublic = $request->input('new_is_public', []);
+                
+                // Crear directorio si no existe
+                $filesDestinationPath = public_path('/files/docs/developments');
+                if (!file_exists($filesDestinationPath)) {
+                    mkdir($filesDestinationPath, 0777, true);
+                }
+                
+                foreach ($files as $index => $uploadedFile) {
+                    // Look for 'new-{$index}' in the order array
+                    $newIndex = array_search('new-' . $index, $fileOrder);
+                    // If found, use that position, otherwise put after last used position
+                    $order = $newIndex !== false ? $newIndex : ++$maxFileOrder;
+                    
+                    // **OBTENER INFORMACIÓN DEL ARCHIVO ANTES DE MOVERLO**
+                    $originalName = $uploadedFile->getClientOriginalName();
+                    $extension = $uploadedFile->getClientOriginalExtension();
+                    $fileType = strtolower($extension);
+                    $mimeType = $uploadedFile->getMimeType();
+                    $fileSize = $uploadedFile->getSize();
+                    
+                    // Generate unique filename
+                    $uniqueTag = substr(md5($slug . time() . rand(0, 9999)), 0, 8);
+                    $truncatedSlugifiedTitle = Str::limit($slug, 30, '');
+                    $fileName = $id . '-' . $truncatedSlugifiedTitle . '-' . $uniqueTag . '.' . $extension;
+                    
+                    // Store file in public directory
+                    $filePath = 'files/docs/developments/' . $fileName;
+                    
+                    // Mover archivo a la ubicación final
+                    $moved = $uploadedFile->move($filesDestinationPath, $fileName);
+                    
+                    // Verificar que el archivo se guardó correctamente
+                    if ($moved) {
+                        // Create file record
+                        $file = new File();
+                        $file->parent_type = Development::class;
+                        $file->parent_id = $id;
+                        $file->file_path = $filePath;
+                        $file->file_name = $fileName;
+                        $file->original_name = $originalName;
+                        $file->file_type = $fileType;
+                        $file->mime_type = $mimeType; // **USAR VARIABLE EN LUGAR DE MÉTODO**
+                        $file->file_size = $fileSize; // **USAR VARIABLE EN LUGAR DE MÉTODO**
+                        $file->button_text = $newButtonTexts[$index] ?? 'Descargar archivo';
+                        $file->description = $newDescriptions[$index] ?? null;
+                        $file->order = $order;
+                        $file->is_public = isset($newIsPublic[$index]) ? (bool)$newIsPublic[$index] : true;
+                        $file->save();
+                    } else {
+                        // Log error o manejar fallo en la subida
+                        Log::channel('debug')->info('Error al subir archivo: ' . $originalName);
+                    }
+                }
+            }
+        }
         
         return response()->json([
             'success' => true, 
             'message' => 'El emprendimiento se actualizó con éxito'
         ]);
     }
-
     public function delete($id) {
         $development = Development::where('id', $id)
         ->with(['images' => function($query) {
@@ -554,7 +670,7 @@ class DevelopmentController extends Controller
         foreach($development->images as $image) {
 
             if ($image) {
-                $basePath = public_path('/files/img/developments/');
+                $basePath = public_path('/files/docs/developments/');
                 if (file_exists($basePath . $image->image)) {
                     unlink($basePath . $image->image);
                 }
