@@ -46,6 +46,49 @@ class Development extends Model
         return $this->hasMany(DevelopmentImage::class)->orderBy('order');
     }
 
+    /**
+     * Relación polimórfica con archivos
+     */
+    public function files()
+    {
+        return $this->morphMany(File::class, 'parent')->orderBy('order');
+    }
+
+    /**
+     * Archivos por tipo
+     */
+    public function pdfs()
+    {
+        return $this->morphMany(File::class, 'parent')
+                    ->where('file_type', 'pdf')
+                    ->orderBy('order');
+    }
+
+    public function imageFiles()
+    {
+        return $this->morphMany(File::class, 'parent')
+                    ->whereIn('file_type', ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'])
+                    ->orderBy('order');
+    }
+
+    public function documents()
+    {
+        return $this->morphMany(File::class, 'parent')
+                    ->whereIn('file_type', ['pdf', 'doc', 'docx', 'txt', 'rtf'])
+                    ->orderBy('order');
+    }
+
+    /**
+     * Solo archivos públicos
+     */
+    public function publicFiles()
+    {
+        return $this->morphMany(File::class, 'parent')
+                    ->where('is_public', true)
+                    ->orderBy('order');
+    }
+
+
     // Enable $development->short_location on read (accessor)
     public function getShortLocationAttribute()
     {
