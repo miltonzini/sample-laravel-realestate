@@ -13,7 +13,8 @@ class Development extends Model
         'title',
         'slug',
         'description',
-        'property_type',
+        'project_details',
+        'development_type',
         'status', 
         'featured',
 
@@ -27,7 +28,6 @@ class Development extends Model
         'estimated_delivery_date', 
         'project_status', 
         'developer',      
-        'project_status', 
 
         'price_range',
 
