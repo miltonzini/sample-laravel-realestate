@@ -25,13 +25,12 @@
               </div>
 
               <div class="block block-col-1-9">
-                <label for="property_type">Tipo de propiedad</label>
-                <select name="property_type">
+                <label for="development_type">Tipo de emprendimiento</label>
+                <select name="development_type">
                     <option value="n-a">n/a</option>
-                    <option value="casa">Casa</option>
-                    <option value="departamento">Departamento</option>
-                    <option value="ph">PH</option>
-                    <option value="monoambiente">Monoambiente</option>
+                    <option value="casa">Edificio de departamentos</option>
+                    <option value="departamento">Edificio de oficinas</option>
+                    <option value="ph">Otro</option>
                 </select>
               </div>
 
@@ -65,6 +64,11 @@
               <div class="block block-col-1-17">
                 <label for="description">Descripción</label>
                 <textarea name="description"  minlength="100" maxlength="3000"></textarea>
+              </div>
+
+              <div class="block block-col-1-17">
+                <label for="project_details">Detalles del proyecto</label>
+                <textarea name="project_details"  minlength="100" maxlength="3000"></textarea>
               </div>
 
               <div class="block block-col-1-17 my6"><hr class="divider"></div>

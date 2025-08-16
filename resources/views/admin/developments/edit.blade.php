@@ -31,13 +31,12 @@
               </div>
 
               <div class="block block-col-1-9">
-                <label for="property_type">Tipo de propiedad</label>
-                <select name="property_type">
-                    <option value="n-a" {{ old('property_type', $development->property_type) == 'n-a' ? 'selected' : '' }}>n/a</option>
-                    <option value="casa" {{ old('property_type', $development->property_type) == 'casa' ? 'selected' : '' }}>Casa</option>
-                    <option value="departamento" {{ old('property_type', $development->property_type) == 'departamento' ? 'selected' : '' }}>Departamento</option>
-                    <option value="ph" {{ old('property_type', $development->property_type) == 'ph' ? 'selected' : '' }}>PH</option>
-                    <option value="monoambiente" {{ old('property_type', $development->property_type) == 'monoambiente' ? 'selected' : '' }}>Monoambiente</option>
+                <label for="development_type">Tipo de emprendimiento </label>
+                <select name="development_type">
+                    <option value="n-a" {{ old('development_type', $development->development_type) == 'n-a' ? 'selected' : '' }}>n/a</option>
+                    <option value="casa" {{ old('development_type', $development->development_type) == 'Edificio de departamentos' ? 'selected' : '' }}>Edificio de departamentos</option>
+                    <option value="casa" {{ old('development_type', $development->development_type) == 'Edificio de oficinas' ? 'selected' : '' }}>Edificio de oficinas</option>
+                    <option value="casa" {{ old('development_type', $development->development_type) == 'Otro' ? 'selected' : '' }}>Otro</option>
                 </select>
               </div>
 
@@ -71,6 +70,11 @@
               <div class="block block-col-1-17">
                 <label for="description">Descripción</label>
                 <textarea name="description" minlength="100" maxlength="3000">{{ old('description', $development->description) }}</textarea>
+              </div>
+
+              <div class="block block-col-1-17">
+                <label for="project_details">Detalles del proyecto</label>
+                <textarea name="project_details" minlength="100" maxlength="3000">{{ old('project_details', $development->project_details) }}</textarea>
               </div>
 
               <div class="block block-col-1-17 my6"><hr class="divider"></div>

@@ -40,9 +40,13 @@ class DevelopmentController extends Controller
             'description.string' => 'La descripción debe ser texto.',
             'description.min' => 'La descripción debe tener al menos 100 caracteres.',
             'description.max' => 'La descripción no puede exceder los 3000 caracteres.',
-            
-            'property_type.required' => 'Selecciona un tipo de propiedad.',
-            'property_type.string' => 'El tipo de emprendimiento debe ser texto.',
+
+            'project_details.string' => 'Los detalles del proyecto deben ser texto.',
+            'project_details.min' => 'Los detalles del proyecto deben tener al menos 100 caracteres.',
+            'project_details.max' => 'Los detalles del proyecto no pueden exceder los 3000 caracteres.',
+
+            'development_type.required' => 'Selecciona un tipo de propiedad.',
+            'development_type.string' => 'El tipo de emprendimiento debe ser texto.',
             'status.required' => 'El estado del emprendimiento es obligatorio.',
             'status.string' => 'El estado debe ser texto.',
             'featured.boolean' => 'El campo destacado debe ser verdadero o falso.',
@@ -93,7 +97,8 @@ class DevelopmentController extends Controller
         $validations = $request->validate([ 
             'title' => 'required|min:3|max:200|unique:developments',
             'description' => 'required|string|min:100|max:3000',
-            'property_type' => 'required|string',
+            'project_details' => 'nullable|string|min:100|max:3000',
+            'development_type' => 'required|string',
             'status' => 'required|string',
             'featured' => 'boolean',
 
@@ -125,7 +130,7 @@ class DevelopmentController extends Controller
 
         $developmentModel = new Development();
         $developmentModel->fill($request->only([
-            'title', 'description', 'property_type', 'status', 'featured', 
+            'title', 'description', 'project_details', 'development_type', 'status', 'featured', 
             'public_address', 'real_address', 'country', 'state', 'city', 'neighborhood',
             'estimated_delivery_date', 'project_status', 'developer', 'services', 'amenities', 
             'price_range', 'video', 'external_url', 'private_notes', 'seller_notes'
@@ -240,9 +245,13 @@ class DevelopmentController extends Controller
             'description.string' => 'La descripción debe ser texto.',
             'description.min' => 'La descripción debe tener al menos 100 caracteres.',
             'description.max' => 'La descripción no puede exceder los 3000 caracteres.',
+
+            'project_details.string' => 'Los detalles del proyecto deben ser texto.',
+            'project_details.min' => 'Los detalles del proyecto deben tener al menos 100 caracteres.',
+            'project_details.max' => 'Los detalles del proyecto no pueden exceder los 3000 caracteres.',
             
-            'property_type.required' => 'Selecciona un tipo de propiedad.',
-            'property_type.string' => 'El tipo de emprendimiento debe ser texto.',
+            'development_type.required' => 'Selecciona un tipo de emprendimiento.',
+            'development_type.string' => 'El tipo de emprendimiento debe ser texto.',
             'status.required' => 'El estado del emprendimiento es obligatorio.',
             'status.string' => 'El estado debe ser texto.',
             'featured.boolean' => 'El campo destacado debe ser verdadero o falso.',
@@ -292,7 +301,8 @@ class DevelopmentController extends Controller
         $validations = $request->validate([ 
             'title' => 'required|min:3|max:200|unique:developments,title,' . $id,
             'description' => 'required|string|min:100|max:3000',
-            'property_type' => 'required|string',
+            'project_details' => 'nullable|string|min:100|max:3000',
+            'development_type' => 'required|string',
             'status' => 'required|string',
             'featured' => 'boolean',
 
@@ -325,7 +335,8 @@ class DevelopmentController extends Controller
         $title = $request->input('title');
         $slug = Str::slug($request->input('title'));
         $description = $request->input('description');
-        $propertyType = $request->input('property_type');
+        $projectDetails = $request->input('project_details');
+        $developmentType = $request->input('development_type');
         $status = $request->input('status');
         $featured = $request->input('featured');
         
@@ -370,7 +381,8 @@ class DevelopmentController extends Controller
         $development->update([ 
             'title' => $title,
             'description' => $description,
-            'property_type' => $propertyType,
+            'project_details' => $projectDetails,
+            'development_type' => $developmentType,
             'status' => $status,
             'featured' => $featured,
             
